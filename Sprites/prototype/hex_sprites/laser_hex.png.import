@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://va34sv35dbjp"
-path="res://.godot/imported/minigun_hex.png-206dc8e215a4c985564b6f7be2baf7b6.ctex"
+uid="uid://c1qldnulx1e88"
+path="res://.godot/imported/laser_hex.png-f6c121fc4b84f4996590d29baad2ad5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/hex_sprites/minigun_hex.png"
-dest_files=["res://.godot/imported/minigun_hex.png-206dc8e215a4c985564b6f7be2baf7b6.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/laser_hex.png"
+dest_files=["res://.godot/imported/laser_hex.png-f6c121fc4b84f4996590d29baad2ad5e.ctex"]
 
 [params]
 

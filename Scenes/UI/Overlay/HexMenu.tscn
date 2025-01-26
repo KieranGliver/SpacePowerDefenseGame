@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://c4qar084b8sbt"]
 
-[ext_resource type="Script" path="res://Scripts/HexMenu.gd" id="1_6858y"]
-[ext_resource type="PackedScene" uid="uid://divqxy2pvpyc7" path="res://Scenes/UI/hex_button.tscn" id="2_l507q"]
-[ext_resource type="Texture2D" uid="uid://cok3fhn0b20j" path="res://Sprites/hex_sprites/wire_hex.png" id="3_q82m2"]
-[ext_resource type="Texture2D" uid="uid://twpi0ngjmg4p" path="res://Sprites/hex_sprites/battery_hex.png" id="5_jcfy3"]
-[ext_resource type="Texture2D" uid="uid://d33oon718wrr7" path="res://Sprites/hex_sprites/generator_hex.png" id="6_fbeae"]
-[ext_resource type="Texture2D" uid="uid://va34sv35dbjp" path="res://Sprites/hex_sprites/minigun_hex.png" id="7_2hp41"]
-[ext_resource type="Texture2D" uid="uid://cshgbjhel73qu" path="res://Sprites/hex_sprites/sniper_hex.png" id="8_q8xhn"]
-[ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/hex_sprites/laser_hex.png" id="9_h4jpo"]
+[ext_resource type="Script" path="res://Scripts/UI/HexMenu.gd" id="1_6858y"]
+[ext_resource type="PackedScene" uid="uid://divqxy2pvpyc7" path="res://Scenes/UI/Overlay/hex_button.tscn" id="2_l507q"]
+[ext_resource type="Texture2D" uid="uid://cok3fhn0b20j" path="res://Sprites/prototype/hex_sprites/wire_hex.png" id="3_q82m2"]
+[ext_resource type="Texture2D" uid="uid://twpi0ngjmg4p" path="res://Sprites/prototype/hex_sprites/battery_hex.png" id="5_jcfy3"]
+[ext_resource type="Texture2D" uid="uid://d33oon718wrr7" path="res://Sprites/prototype/hex_sprites/generator_hex.png" id="6_fbeae"]
+[ext_resource type="Texture2D" uid="uid://va34sv35dbjp" path="res://Sprites/prototype/hex_sprites/minigun_hex.png" id="7_2hp41"]
+[ext_resource type="Texture2D" uid="uid://cshgbjhel73qu" path="res://Sprites/prototype/hex_sprites/sniper_hex.png" id="8_q8xhn"]
+[ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/prototype/hex_sprites/laser_hex.png" id="9_h4jpo"]
 
 [node name="HexMenu" type="PanelContainer"]
 anchors_preset = 7

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://m3a8sq1eyv46"]
+
+[ext_resource type="Texture2D" uid="uid://kor1rs2c1ag1" path="res://Sprites/prototype/weapon.png" id="1_c2a2q"]
+[ext_resource type="Script" path="res://Scripts/Buildings/weapon.gd" id="2_g5w4q"]
+[ext_resource type="PackedScene" uid="uid://tflg4thayjvg" path="res://Scenes/Buildings/Weapons/projectile.tscn" id="3_hf0bd"]
+
+[node name="Minigun" type="Sprite2D"]
+texture = ExtResource("1_c2a2q")
+script = ExtResource("2_g5w4q")
+ammo_amount = 3
+attack_speed = 1.0
+cooldown = 3.0
+projectile = ExtResource("3_hf0bd")

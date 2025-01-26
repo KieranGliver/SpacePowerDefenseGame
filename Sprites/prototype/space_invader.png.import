@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfho34ncnhcbw"
-path="res://.godot/imported/hex_grid.png-c4e462f27f0e88723d0cec68f17b02dc.ctex"
+uid="uid://dr12gfoiedugu"
+path="res://.godot/imported/space_invader.png-c67c9e2c5509d3f618876f23b5539fcf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/hex_grid.png"
-dest_files=["res://.godot/imported/hex_grid.png-c4e462f27f0e88723d0cec68f17b02dc.ctex"]
+source_file="res://Sprites/prototype/space_invader.png"
+dest_files=["res://.godot/imported/space_invader.png-c67c9e2c5509d3f618876f23b5539fcf.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cved15jmsk7ep"]
 
-[ext_resource type="Texture2D" uid="uid://cnowrrt8e4r2l" path="res://Sprites/hex_sprites/hex_tile_map.png" id="1_o03fh"]
-[ext_resource type="Script" path="res://Scenes/hex_tile_map.gd" id="2_7ekgt"]
+[ext_resource type="Texture2D" uid="uid://cnowrrt8e4r2l" path="res://Sprites/prototype/hex_sprites/hex_tile_map.png" id="1_o03fh"]
+[ext_resource type="Script" path="res://Scripts/UI/hex_tile_map.gd" id="2_7ekgt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mphw3"]
 texture = ExtResource("1_o03fh")

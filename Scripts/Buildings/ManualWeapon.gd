@@ -1,6 +1,6 @@
 extends Sprite2D
 
-var projectile = preload("res://Scenes/Weapons/projectile.tscn")
+var projectile = preload("res://Scenes/Buildings/Weapons/projectile.tscn")
 
 func _input(event):
 	if event is InputEventMouse:

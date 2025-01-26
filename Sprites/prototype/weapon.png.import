@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qr1a8anpto8r"
-path="res://.godot/imported/Pixel astroid.png-cefa0cf37794765f4f040048f32d1cb6.ctex"
+uid="uid://kor1rs2c1ag1"
+path="res://.godot/imported/weapon.png-382dcf5608e2c63459b6567eda59e016.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Pixel astroid.png"
-dest_files=["res://.godot/imported/Pixel astroid.png-cefa0cf37794765f4f040048f32d1cb6.ctex"]
+source_file="res://Sprites/prototype/weapon.png"
+dest_files=["res://.godot/imported/weapon.png-382dcf5608e2c63459b6567eda59e016.ctex"]
 
 [params]
 

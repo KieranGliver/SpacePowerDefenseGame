@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://6c1t8nkvmvi0"]
 
-[ext_resource type="Script" path="res://CurrenyLabel.gd" id="1_vh1um"]
+[ext_resource type="Script" path="res://Scripts/UI/CurrenyLabel.gd" id="1_vh1um"]
 [ext_resource type="Texture2D" uid="uid://b1e55alo5yhlv" path="res://Sprites/prototype/coin.png" id="2_7baeq"]
 
 [node name="CurrenyLabel" type="PanelContainer"]

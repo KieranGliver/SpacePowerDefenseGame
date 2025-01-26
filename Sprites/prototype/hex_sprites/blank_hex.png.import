@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d33oon718wrr7"
-path="res://.godot/imported/generator_hex.png-62a538c6e5ef269121a7c58028766c58.ctex"
+uid="uid://gmkebxm45hft"
+path="res://.godot/imported/blank_hex.png-1ddd0628abbc72888c6986a1389b4b9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/hex_sprites/generator_hex.png"
-dest_files=["res://.godot/imported/generator_hex.png-62a538c6e5ef269121a7c58028766c58.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/blank_hex.png"
+dest_files=["res://.godot/imported/blank_hex.png-1ddd0628abbc72888c6986a1389b4b9d.ctex"]
 
 [params]
 

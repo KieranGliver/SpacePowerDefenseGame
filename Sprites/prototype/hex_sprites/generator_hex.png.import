@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://twpi0ngjmg4p"
-path="res://.godot/imported/battery_hex.png-2780f3ff16e9522d09e99683cc199f19.ctex"
+uid="uid://d33oon718wrr7"
+path="res://.godot/imported/generator_hex.png-66a37e7c2b35ea7bc8a4e6f54df9657f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/hex_sprites/battery_hex.png"
-dest_files=["res://.godot/imported/battery_hex.png-2780f3ff16e9522d09e99683cc199f19.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/generator_hex.png"
+dest_files=["res://.godot/imported/generator_hex.png-66a37e7c2b35ea7bc8a4e6f54df9657f.ctex"]
 
 [params]
 

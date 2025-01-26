@@ -9,10 +9,10 @@ extends Node2D
 const tile_map_layer = 0
 const tile_map_atlas_id = 0
 
-const HEX_ICON_PREFAB = preload("res://Scenes/hex_icon.tscn")
+const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
 const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
-const MANUAL_PREFAB = preload("res://Scenes/Weapons/manual_weapon.tscn")
-const MINIGUN_PREFAB = preload("res://Scenes/Weapons/minigun.tscn")
+const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
+const MINIGUN_PREFAB = preload("res://Scenes/Buildings/Weapons/minigun.tscn")
 
 var currency : int = 0
 var systems = []

@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Space Power Defense"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/GameScenes/main.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Data="*res://Scripts/data.gd"
-Methods="*res://Scripts/methods.gd"
+Data="*res://Scripts/Utility/data.gd"
+Methods="*res://Scripts/Utility/methods.gd"
 
 [display]
 

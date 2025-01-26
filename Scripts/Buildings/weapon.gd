@@ -36,7 +36,7 @@ func _cooldown_timeout():
 
 func _attackspeed_timeout():
 	if ammo_remaining > 0:
-		if get_tree().get_nodes_in_group("enemy").size() > 0 and get_tree().get_first_node_in_group("game_manager").consume_charge(get_parent().tile_pos, charge_cost):
+		if get_tree().get_nodes_in_group("enemy").size() > 0 and get_tree().get_first_node_in_group("game_manager").consume_system_charge(get_parent(), charge_cost):
 			var projectile_instant = projectile.instantiate()
 			var enemy_pos = Methods.find_closest("enemy", global_position)[0]
 			projectile_instant.global_position = global_position

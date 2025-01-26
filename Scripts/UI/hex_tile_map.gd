@@ -1,16 +1,23 @@
 extends TileMap
 
-const tile_map_layer = 0
-const tile_map_atlas_id = 0
+func is_building(tile_pos:Vector2):
+	return get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos) and get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos).get_custom_data("Occupied")
+	
 
+func tile_pos_to_building(tile_pos):
+	var buildings = get_tree().get_nodes_in_group("building")
+	var building = buildings.filter(func(building: Building): return building.tile_pos == tile_pos)[0]
+	return building
 
 func find_connections():
-	var possible = get_used_cells(tile_map_layer)
-	possible = possible.filter(func(tile_pos:Vector2i): return get_cell_tile_data(tile_map_layer,tile_pos).get_custom_data("Occupied"))
+	var possible = get_used_cells(Data.TILE_MAP_LAYER).filter(is_building)
 	var connections_array = []
 	while !possible.is_empty():
 		var connections = hex_depth_first_search(possible[0])
-		connections_array.append(connections)
+		# must make sure that each connection being check does contain a building
+		var connected_buildings = connections.map(tile_pos_to_building)
+		
+		connections_array.append(connected_buildings)
 		for c in connections:
 			possible.erase(Vector2i(c))
 	return connections_array
@@ -25,7 +32,7 @@ func hex_depth_first_search(tile_pos: Vector2):
 		if !visited.has(pos):
 			visited.append(pos)
 			var neighbours = Methods.get_adjacent_hexes(pos)
-			neighbours = neighbours.filter(func(tile_pos:Vector2): return get_cell_tile_data(tile_map_layer,tile_pos) and get_cell_tile_data(tile_map_layer,tile_pos).get_custom_data("Occupied"))
+			neighbours = neighbours.filter(is_building)
 			for n in neighbours:
 				if !visited.has(n):
 					stack.append(n)

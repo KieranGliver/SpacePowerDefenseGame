@@ -18,7 +18,7 @@ func _ready():
 
 func _process(delta):
 	if (charge_rate > 0):
-		get_tree().get_first_node_in_group("game_manager").add_charge(tile_pos, charge_rate*delta)
+		get_tree().get_first_node_in_group("game_manager").add_system_charge(self, charge_rate*delta)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):
 	hp -= damage

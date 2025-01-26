@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://0v2s4ifhgy8h"]
+
+[ext_resource type="PackedScene" uid="uid://cved15jmsk7ep" path="res://Scenes/hex_tile_map.tscn" id="1_23a8a"]
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_88mrd"]
+[ext_resource type="PackedScene" uid="uid://c4qar084b8sbt" path="res://Scenes/UI/HexMenu.tscn" id="2_yfjim"]
+[ext_resource type="PackedScene" uid="uid://bovrdbn26tthk" path="res://Scenes/wave_spawner.tscn" id="3_jtl8h"]
+[ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="4_4e1xk"]
+[ext_resource type="Script" path="res://Scripts/wave_info.gd" id="5_v1hpw"]
+[ext_resource type="PackedScene" uid="uid://nyfi7v8qvp8l" path="res://Scenes/Weapons/manual_weapon.tscn" id="6_rvyob"]
+
+[sub_resource type="Resource" id="Resource_s7ns0"]
+script = ExtResource("5_v1hpw")
+time_start = 0
+time_end = 60
+enemy = ExtResource("4_4e1xk")
+enemy_num = 10
+enemy_spawn_delay = 3
+
+[node name="Node" type="Node"]
+
+[node name="Main" type="Node2D" parent="."]
+script = ExtResource("1_88mrd")
+
+[node name="TileMap" parent="Main" instance=ExtResource("1_23a8a")]
+position = Vector2(-26, -23.5)
+scale = Vector2(0.5, 0.5)
+
+[node name="WaveSpawner" parent="Main" instance=ExtResource("3_jtl8h")]
+scale = Vector2(0.5, 0.5)
+spawns = Array[ExtResource("5_v1hpw")]([SubResource("Resource_s7ns0")])
+
+[node name="Camera2D" type="Camera2D" parent="Main"]
+position = Vector2(-26, -23.5)
+scale = Vector2(0.5, 0.5)
+
+[node name="ManualWeapon" parent="Main" instance=ExtResource("6_rvyob")]
+scale = Vector2(0.5, 0.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HexMenu" parent="CanvasLayer/UI" instance=ExtResource("2_yfjim")]
+layout_mode = 1

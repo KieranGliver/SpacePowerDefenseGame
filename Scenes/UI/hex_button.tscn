@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://divqxy2pvpyc7"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_m7hmg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_odakt"]
+texture = SubResource("CanvasTexture_m7hmg")
+modulate_color = Color(0.490196, 0.490196, 0.490196, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_a3vod"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j7cy5"]
+texture = SubResource("CanvasTexture_a3vod")
+modulate_color = Color(0.960784, 0.435294, 0.572549, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_rvqsm"]
+specular_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2xdi"]
+texture = SubResource("CanvasTexture_rvqsm")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b21tk"]
+
+[node name="HexButton" type="Button"]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_odakt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_odakt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_j7cy5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_r2xdi")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b21tk")

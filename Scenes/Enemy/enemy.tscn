@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj1d8rkihmwgw"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_6f0px"]
+[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/space_invader.png" id="1_i5vgi"]
+[ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_h3gkj"]
+[ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2slw"]
+size = Vector2(48, 28)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0b2rj"]
+radius = 17.0
+height = 50.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ykmfc"]
+height = 40.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_6f0px")
+hp = 3
+value = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i5vgi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_m2slw")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_h3gkj")]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0b2rj")
+
+[node name="HitBox" parent="." instance=ExtResource("4_6dbrs")]
+collision_layer = 4
+collision_mask = 4
+damage = 10
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ykmfc")
+
+[connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

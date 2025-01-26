@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://cved15jmsk7ep"]
+
+[ext_resource type="Texture2D" uid="uid://cnowrrt8e4r2l" path="res://Sprites/hex_sprites/hex_tile_map.png" id="1_o03fh"]
+[ext_resource type="Script" path="res://Scenes/hex_tile_map.gd" id="2_7ekgt"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mphw3"]
+texture = ExtResource("1_o03fh")
+margins = Vector2i(9, 8)
+separation = Vector2i(18, 0)
+texture_region_size = Vector2i(110, 97)
+0:0/0 = 0
+1:0/0 = 0
+1:0/0/custom_data_0 = true
+2:0/0 = 0
+2:0/0/custom_data_0 = true
+3:0/0 = 0
+3:0/0/custom_data_0 = true
+4:0/0 = 0
+4:0/0/custom_data_0 = true
+5:0/0 = 0
+5:0/0/custom_data_0 = true
+6:0/0 = 0
+6:0/0/custom_data_0 = true
+7:0/0 = 0
+7:0/0/custom_data_0 = true
+
+[sub_resource type="TileSet" id="TileSet_ctrd7"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(102, 94)
+custom_data_layer_0/name = "Occupied"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_mphw3")
+
+[node name="TileMap" type="TileMap"]
+position = Vector2(-52, -47)
+tile_set = SubResource("TileSet_ctrd7")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 458752, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -65537, 0, 0, 65534, 0, 0, -2, 0, 0, 131070, 0, 0, 131071, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 65539, 0, 0, 3, 0, 0, -65533, 0, 0, -131069, 0, 0, -131070, 0, 0, -196607, 0, 0, -196608, 0, 0, -131073, 0, 0, -65538, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196606, 0, 0, 196607, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 4, 0, 0, -65532, 0, 0, 65540, 0, 0, 131076, 0, 0, 131075, 0, 0, 262143, 0, 0, 262144, 0, 0, 262142, 0, 0, 196605, 0, 0, 131068, 0, 0, 65532, 0, 0, -4, 0, 0, 196604, 0, 0, -65540, 0, 0, -131075, 0, 0, -131074, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -196606, 0, 0, -196605, 0, 0, -131068, 0, 0)
+script = ExtResource("2_7ekgt")

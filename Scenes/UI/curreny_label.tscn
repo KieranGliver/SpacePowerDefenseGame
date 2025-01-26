@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://6c1t8nkvmvi0"]
+
+[ext_resource type="Script" path="res://CurrenyLabel.gd" id="1_vh1um"]
+[ext_resource type="Texture2D" uid="uid://b1e55alo5yhlv" path="res://Sprites/prototype/coin.png" id="2_7baeq"]
+
+[node name="CurrenyLabel" type="PanelContainer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -222.0
+offset_bottom = 111.0
+grow_horizontal = 0
+script = ExtResource("1_vh1um")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "INV"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_7baeq")
+stretch_mode = 2

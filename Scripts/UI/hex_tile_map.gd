@@ -4,18 +4,13 @@ func is_building(tile_pos:Vector2):
 	return get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos) and get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos).get_custom_data("Occupied")
 	
 
-func tile_pos_to_building(tile_pos):
-	var buildings = get_tree().get_nodes_in_group("building")
-	var building = buildings.filter(func(building: Building): return building.tile_pos == tile_pos)[0]
-	return building
-
 func find_connections():
 	var possible = get_used_cells(Data.TILE_MAP_LAYER).filter(is_building)
 	var connections_array = []
 	while !possible.is_empty():
 		var connections = hex_depth_first_search(possible[0])
 		# must make sure that each connection being check does contain a building
-		var connected_buildings = connections.map(tile_pos_to_building)
+		var connected_buildings = connections.map(Methods.find_building)
 		
 		connections_array.append(connected_buildings)
 		for c in connections:

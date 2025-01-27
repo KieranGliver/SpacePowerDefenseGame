@@ -47,7 +47,6 @@ layer_0/tile_data = PackedInt32Array(0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 
 
 [node name="WaveSpawner" parent="GM" instance=ExtResource("3_jtl8h")]
 scale = Vector2(0.5, 0.5)
-spawns = Array[Resource("res://Scripts/Enemy/wave_info.gd")]([])
 
 [node name="Camera2D" type="Camera2D" parent="GM"]
 scale = Vector2(0.5, 0.5)

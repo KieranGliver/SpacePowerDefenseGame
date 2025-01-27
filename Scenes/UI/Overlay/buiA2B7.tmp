@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://cutcp6wdm8vsd"]
+
+[ext_resource type="Script" path="res://Scenes/UI/Overlay/building_popup.gd" id="1_0q2fo"]
+
+[node name="BuildingPopUp" type="PanelContainer"]
+offset_right = 60.0
+offset_bottom = 71.0
+script = ExtResource("1_0q2fo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "test"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 2
+text = "sell"

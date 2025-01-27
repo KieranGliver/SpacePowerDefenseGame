@@ -21,6 +21,8 @@ func _process(delta):
 		if enemy_exists():
 			var enemy = Methods.find_closest("enemy", global_position)[0]
 			if in_range(enemy) and paid_cost(process_charge_cost):
+				if internal_timer.is_stopped():
+					internal_timer.start()
 				beam.visible = true
 				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
 				beam.points = [get_barrel_end_position(), to_local(enemy.global_position)]
@@ -29,9 +31,7 @@ func _process(delta):
 			beam.visible = false
 
 func _on_external_timer_timeout():
-	beam.visible = true
 	active = true
-	internal_timer.start()
 
 func _on_internal_timer_timeout():
 	beam.visible = false

@@ -27,7 +27,7 @@ func _on_internal_timer_timeout():
 				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
 				create_tracer(to_local(enemy.global_position))
 				enemy.damage(damage_val)
-		ammo_remaining -= 1
+				ammo_remaining -= 1
 		internal_timer.start()
 	else:
 		external_timer.start()

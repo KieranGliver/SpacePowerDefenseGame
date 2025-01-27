@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cklmyjd1nvn2l"]
+
+[ext_resource type="PackedScene" uid="uid://bor33ifgakyq6" path="res://Scenes/Buildings/Weapons/auto_weapon.tscn" id="1_6f1al"]
+[ext_resource type="Script" path="res://Scripts/Buildings/continous_auto_weapon.gd" id="2_iqstu"]
+
+[node name="ContinousAutoWeapon" type="Node2D"]
+
+[node name="AutoWeapon" parent="." instance=ExtResource("1_6f1al")]
+script = ExtResource("2_iqstu")
+attack_duration = 0.0
+
+[node name="Beam" type="Line2D" parent="AutoWeapon"]
+visible = false
+width = 2.0
+default_color = Color(0, 0.717647, 0.72549, 1)
+
+[editable path="AutoWeapon"]

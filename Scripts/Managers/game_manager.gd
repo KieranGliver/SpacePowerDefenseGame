@@ -9,7 +9,7 @@ extends Node2D
 # Preloaded prefabs for various objects
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
 const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
-const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual.tscn")
+const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
 const AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
 const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
 
@@ -102,6 +102,7 @@ func setup_building(hex_id: int, building_instant: Building):
 			building_instant.tag = "generator"
 		Data.hex_ids.MANUAL:
 			var manual_instant = MANUAL_PREFAB.instantiate()
+			manual_instant.building_owner = building_instant
 			building_instant.add_child(manual_instant)
 			building_instant.tag = "manual"
 		Data.hex_ids.MINIGUN:

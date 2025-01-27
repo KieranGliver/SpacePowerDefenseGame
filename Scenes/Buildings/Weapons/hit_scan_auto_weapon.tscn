@@ -9,8 +9,8 @@
 script = ExtResource("2_eibvf")
 ammo_amount = 3
 attack_speed = 0.2
+cooldown = 1.0
 damage_val = 10.0
 charge_cost = 10.0
-cooldown = 1.0
 
 [editable path="AutoWeapon"]

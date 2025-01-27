@@ -31,7 +31,7 @@ func _on_area_entered(area):
 			if not area.get("knockback") == null:
 				knockback = area.knockback
 			
-			emit_signal("hurt", damage, direction, knockback)
+			emit_signal("hurt", damage, knockback, direction)
 
 func _on_disable_timer_timeout():
 	collision.call_deferred("set", "disabled", false)

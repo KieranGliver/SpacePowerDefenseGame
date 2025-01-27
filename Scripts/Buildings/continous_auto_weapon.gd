@@ -2,7 +2,7 @@ extends AutoWeapon
 
 @onready var beam = $Beam
 
-@export var attack_duration: float = 0 # Time between shots in seconds
+@export var attack_duration: float = 0
 
 var active : bool = false
 

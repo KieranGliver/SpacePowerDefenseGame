@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4qar084b8sbt"]
+[gd_scene load_steps=10 format=3 uid="uid://c4qar084b8sbt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HexMenu.gd" id="1_6858y"]
 [ext_resource type="PackedScene" uid="uid://divqxy2pvpyc7" path="res://Scenes/UI/Overlay/hex_button.tscn" id="2_l507q"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d33oon718wrr7" path="res://Sprites/prototype/hex_sprites/generator_hex.png" id="6_fbeae"]
 [ext_resource type="Texture2D" uid="uid://va34sv35dbjp" path="res://Sprites/prototype/hex_sprites/minigun_hex.png" id="7_2hp41"]
 [ext_resource type="Texture2D" uid="uid://cshgbjhel73qu" path="res://Sprites/prototype/hex_sprites/sniper_hex.png" id="8_q8xhn"]
+[ext_resource type="Texture2D" uid="uid://db33sg86knnqt" path="res://Sprites/prototype/hex_sprites/manual_hex.png" id="9_6yqf4"]
 [ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/prototype/hex_sprites/laser_hex.png" id="9_h4jpo"]
 
 [node name="HexMenu" type="PanelContainer"]
@@ -57,12 +58,17 @@ icon = ExtResource("8_q8xhn")
 layout_mode = 2
 icon = ExtResource("9_h4jpo")
 
+[node name="ManualButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
+layout_mode = 2
+icon = ExtResource("9_6yqf4")
+
 [connection signal="button_down" from="MarginContainer/HBoxContainer/WireButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/BatteryButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/GeneratorButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/MinigunButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/SniperButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/LaserButton" to="." method="_on_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/ManualButton" to="." method="_on_button_down"]
 
 [editable path="MarginContainer/HBoxContainer/WireButton"]
 [editable path="MarginContainer/HBoxContainer/BatteryButton"]
@@ -70,3 +76,4 @@ icon = ExtResource("9_h4jpo")
 [editable path="MarginContainer/HBoxContainer/MinigunButton"]
 [editable path="MarginContainer/HBoxContainer/SniperButton"]
 [editable path="MarginContainer/HBoxContainer/LaserButton"]
+[editable path="MarginContainer/HBoxContainer/ManualButton"]

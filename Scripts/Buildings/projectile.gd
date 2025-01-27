@@ -2,12 +2,8 @@ extends Area2D
 
 var angle : Vector2 = Vector2.ZERO
 
-var level = 1
-var hp = 1
-var speed = 100
-var damage = 5
-var knockback = 1000
-var att_size = 1.0
+var speed = 200
+var damage: float = 10.0
 
 func _on_timer_timeout():
 	queue_free()

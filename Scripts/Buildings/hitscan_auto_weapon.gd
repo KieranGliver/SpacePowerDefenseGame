@@ -3,7 +3,7 @@ extends AutoWeapon
 const TRACER_PREFAB = preload("res://Scenes/Buildings/Weapons/Effects/tracer.tscn")
 
 @export var ammo_amount: int = 0
-@export var attack_speed: float = 0 # Time between shots in seconds
+@export var attack_speed: float = 0 
 
 var ammo_remaining = 0
 

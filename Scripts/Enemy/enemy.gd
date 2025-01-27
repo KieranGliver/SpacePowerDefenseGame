@@ -9,11 +9,10 @@ var knockback_dir : Vector2 = Vector2(0, 0)
 
 @onready var sprite = $Sprite2D
 
-@onready var target : Vector2 = Methods.find_closest("building", position)[0]
+var target_pos : Vector2 = Vector2.ZERO
 
 func _ready():
-	if target == Vector2.INF:
-		target = Vector2.ZERO
+	find_target()
 
 func _physics_process(delta):
 	var direction = Vector2(0, 0)
@@ -21,7 +20,7 @@ func _physics_process(delta):
 	# if knockback exists apply knockback and reduce it otherwise move towards the player
 	if knockback <= 0:
 		
-		direction = global_position.direction_to(target)
+		direction = global_position.direction_to(target_pos)
 		velocity = direction * SPEED
 		
 		if direction.x > 0:
@@ -36,9 +35,12 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func _on_hurt_box_hurt(damage, direction, knockback):
+func _on_hurt_box_hurt(damage: int, knockback_mag: float, knockback_dir: Vector2):
+	damage(damage, knockback_mag, knockback_dir)
+
+func damage(damage: int, knockback_mag: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO):
 	hp -= damage
-	set_knockback(knockback, direction)
+	set_knockback(knockback_mag, knockback_dir)
 	if hp <= 0:
 		queue_free()
 		get_tree().get_first_node_in_group("game_manager").add_currency(value)
@@ -48,6 +50,8 @@ func set_knockback(magnitude: float, direction: Vector2):
 	knockback_dir = direction
 
 func find_target():
-	target = Methods.find_closest("building", position)[0]
-	if target == Vector2.INF:
-		target = Vector2.ZERO
+	var target_node = Methods.find_closest("building", position)[0]
+	if target_node:
+		target_pos = target_node.global_position
+	else:
+		target_pos = Vector2.ZERO

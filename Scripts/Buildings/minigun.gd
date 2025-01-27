@@ -4,10 +4,12 @@ class_name Weapon
 
 @export var ammo_amount: int = 0
 
+
 @export var attack_speed: float = 0 # Time between shots in seconds
 @export var cooldown:float = 0
+@export var damage_val: int = 10
 
-@export var projectile : Resource
+
 @export var charge_cost = 10.0
 var ammo_remaining = 0
 
@@ -36,13 +38,9 @@ func _cooldown_timeout():
 func _attackspeed_timeout():
 	if ammo_remaining > 0:
 		if get_tree().get_nodes_in_group("enemy").size() > 0 and get_tree().get_first_node_in_group("game_manager").consume_system_charge(get_parent(), charge_cost):
-			var projectile_instant = projectile.instantiate()
-			var enemy_pos = Methods.find_closest("enemy", global_position)[0]
-			projectile_instant.global_position = global_position
-			rotation = (enemy_pos-global_position).angle() + deg_to_rad(90.0)
-			get_tree().get_first_node_in_group("game_manager").add_child(projectile_instant)
-			projectile_instant.set_target(enemy_pos)
-			
+			var enemy = Methods.find_closest("enemy", global_position)[0]
+			rotation = (enemy.global_position-global_position).angle() + deg_to_rad(90.0)
+			enemy.damage(damage_val)
 		ammo_remaining -= 1
 		internal_timer.start()
 	else:

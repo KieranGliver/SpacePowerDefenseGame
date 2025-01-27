@@ -170,7 +170,6 @@ func consume_system_charge(building: Building, amount: float):
 		
 		battery.add_charge(-transfer)
 		remaining_amount -= transfer
-	print(remaining_amount)
 	return remaining_amount == 0.0
 
 # Finds the power system associated with a given building

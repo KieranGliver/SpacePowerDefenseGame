@@ -1,16 +1,14 @@
 extends Sprite2D
 
-class_name Weapon
+const TRACER_PREFAB = preload("res://Scenes/Buildings/Weapons/tracer.tscn")
+const SPRITE_ROTATION_OFFSET = deg_to_rad(90.0)
 
 @export var ammo_amount: int = 0
-
-
 @export var attack_speed: float = 0 # Time between shots in seconds
 @export var cooldown:float = 0
 @export var damage_val: int = 10
-
-
 @export var charge_cost = 10.0
+
 var ammo_remaining = 0
 
 var external_timer: Timer = Timer.new() # Internal cooldown timer
@@ -39,7 +37,8 @@ func _attackspeed_timeout():
 	if ammo_remaining > 0:
 		if get_tree().get_nodes_in_group("enemy").size() > 0 and get_tree().get_first_node_in_group("game_manager").consume_system_charge(get_parent(), charge_cost):
 			var enemy = Methods.find_closest("enemy", global_position)[0]
-			rotation = (enemy.global_position-global_position).angle() + deg_to_rad(90.0)
+			rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
+			create_tracer(to_local(enemy.global_position))
 			enemy.damage(damage_val)
 		ammo_remaining -= 1
 		internal_timer.start()
@@ -53,3 +52,15 @@ func set_cooldown(c):
 func set_attack_speed(a):
 	attack_speed = a
 	internal_timer.wait_time = a
+
+func get_barrel_end_position():
+	return Vector2(0, -texture.get_height()/2)
+	
+
+func create_tracer(end_pos: Vector2):
+	var origin = get_barrel_end_position()
+	var tracer = TRACER_PREFAB.instantiate()
+	tracer.points = [origin, end_pos]
+	
+	add_child(tracer)
+	

@@ -21,11 +21,12 @@ func _on_external_timer_timeout():
 
 func _on_internal_timer_timeout():
 	if ammo_remaining > 0:
-		if get_tree().get_nodes_in_group("enemy").size() > 0 and get_tree().get_first_node_in_group("game_manager").consume_system_charge(building_owner, charge_cost):
+		if enemy_exists():
 			var enemy = Methods.find_closest("enemy", global_position)[0]
-			rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
-			create_tracer(to_local(enemy.global_position))
-			enemy.damage(damage_val)
+			if in_range(enemy) and paid_cost(charge_cost):
+				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
+				create_tracer(to_local(enemy.global_position))
+				enemy.damage(damage_val)
 		ammo_remaining -= 1
 		internal_timer.start()
 	else:

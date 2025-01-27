@@ -11,6 +11,7 @@ var weapon_stats = {
 	"minigun": {
 		"damage": 3.0,
 		"charge": 5.0,
+		"range": 250.0,
 		"cooldown": 3.0,
 		"attack_speed": 0.25,
 		"ammo": 3
@@ -18,6 +19,7 @@ var weapon_stats = {
 	"sniper": {
 		"damage": 10.0,
 		"charge": 20.0,
+		"range": 500.0,
 		"cooldown": 5.0,
 		"attack_speed": 1.0,
 		"ammo": 1
@@ -29,6 +31,7 @@ var weapon_stats = {
 	"laser": {
 		"damage": 1.0,
 		"charge": 1.0,
+		"range": 400.0,
 		"cooldown": 3.0,
 		"attack_duration": 10.0,
 	}

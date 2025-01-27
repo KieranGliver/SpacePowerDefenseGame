@@ -7,7 +7,11 @@
 
 [node name="AutoWeapon" parent="." instance=ExtResource("1_6f1al")]
 script = ExtResource("2_iqstu")
-attack_duration = 0.0
+attack_duration = null
+cooldown = null
+range = null
+damage_val = null
+charge_cost = null
 
 [node name="Beam" type="Line2D" parent="AutoWeapon"]
 visible = false

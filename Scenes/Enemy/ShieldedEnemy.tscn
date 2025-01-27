@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://q2wb24pq5quq"]
+
+[ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="1_ppnlu"]
+[ext_resource type="Texture2D" uid="uid://b82nrg33uwh8m" path="res://Sprites/prototype/Space_invader_2.png" id="2_ebnxi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k8pss"]
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mr2r1"]
+radius = 17.0
+height = 60.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ex8f5"]
+radius = 13.0
+height = 54.0
+
+[node name="Enemy" instance=ExtResource("1_ppnlu")]
+SPEED = 45.0
+max_hp = 5.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_ebnxi")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0)
+shape = SubResource("CapsuleShape2D_k8pss")
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+rotation = 0.0
+shape = SubResource("CapsuleShape2D_mr2r1")
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+rotation = 0.0
+shape = SubResource("CapsuleShape2D_ex8f5")
+
+[node name="BarDisplay" parent="." index="5"]
+position = Vector2(0, -10)
+
+[editable path="HurtBox"]
+[editable path="HitBox"]

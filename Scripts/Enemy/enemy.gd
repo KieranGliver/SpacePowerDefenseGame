@@ -2,14 +2,16 @@ extends CharacterBody2D
 
 class_name Enemy
 
-@export var SPEED : float = 40.0
-@export var hp: float = 10
-@export var max_hp : float = 10.0
-@export var shield: float = 0
+@export var SPEED : float = 0
+@export var max_hp : float = 0
 @export var max_shield : float = 0
-@export var shield_recharge_rate: float = 1
-@export var knockback_resistance : float = 4
-@export var value = 1
+@export var shield_recharge_rate: float = 0
+
+@export var value: int = 0
+
+var hp: float = 0
+var shield: float = 0
+var knockback_resistance : float = 4
 var knockback : float = 0
 var knockback_dir : Vector2 = Vector2(0, 0)
 var shield_recharge: bool = true
@@ -24,8 +26,8 @@ var target_pos : Vector2 = Vector2.ZERO
 
 func _ready():
 	find_target()
-	update_health(0)
-	update_shield(0)
+	update_health(max_hp)
+	update_shield(max_shield)
 
 func _process(delta):
 	if shield_recharge and shield <= max_shield:

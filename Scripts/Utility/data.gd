@@ -7,7 +7,9 @@ var cost = [0, 5, 50, 100, 50, 100, 150, 50]
 const TILE_MAP_LAYER = 0
 const TILE_MAP_ATLAS_ID = 0
 
-const BASIC_ENEMY = preload("res://Scenes/Enemy/enemy.tscn")
+const BASIC_ENEMY = preload("res://Scenes/Enemy/BasicEnemy.tscn")
+const SHIELD_ENEMY = preload("res://Scenes/Enemy/ShieldedEnemy.tscn")
+const SLOW_ENEMY = preload("res://Scenes/Enemy/SlowEnemy.tscn")
 
 var weapon_stats = {
 	"minigun": {
@@ -43,10 +45,24 @@ var wave_data = [
 	[
 		{
 			"time_start": 0,
-			"time_end": 10,
+			"time_end": 30,
 			"enemy": BASIC_ENEMY,
 			"enemy_num": 3,
 			"enemy_spawn_delay": 3
+		},
+		{
+			"time_start": 10,
+			"time_end": 30,
+			"enemy": SLOW_ENEMY,
+			"enemy_num": 1,
+			"enemy_spawn_delay": 5
+		},
+		{
+			"time_start": 20,
+			"time_end": 30,
+			"enemy": SHIELD_ENEMY,
+			"enemy_num": 2,
+			"enemy_spawn_delay": 4
 		}
 	]
 ]

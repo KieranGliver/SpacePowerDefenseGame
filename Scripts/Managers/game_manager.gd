@@ -5,6 +5,8 @@ extends Node2D
 @onready var camera : Camera2D = $Camera2D # The game's main camera
 @onready var canvas_layer: CanvasLayer = $"../CanvasLayer" # Layer for UI and overlays
 @onready var currency_label = $"../CanvasLayer/UI/CurrenyLabel" # UI label displaying current currency
+@onready var wave_spawner = $WaveSpawner
+@onready var start_button = $"../CanvasLayer/UI/StartButton"
 
 # Preloaded prefabs for various objects
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
@@ -15,6 +17,7 @@ const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_
 
 # Variables for game state
 var currency : int = 0 # Player's available currency
+var level : int = 0
 var power_systems = [] # Tracks connected power systems
 var hex_icon : Node # Temporary icon for hex placement
 var placement_state : bool = false # Whether a hex is being placed
@@ -99,6 +102,7 @@ func setup_building(hex_id: int, building_instant: Building):
 			building_instant.tag = "battery"
 		Data.hex_ids.GENERATOR:
 			building_instant.charge_rate = 10.0
+			building_instant.max_charge = 50.0
 			building_instant.tag = "generator"
 		Data.hex_ids.MANUAL:
 			var manual_instant = MANUAL_PREFAB.instantiate()
@@ -206,3 +210,13 @@ func find_building_system(building:Building):
 		if system.has(building):
 			return system
 	return []
+
+
+func _on_start_button_pressed():
+	start_button.visible = false
+	wave_spawner.start_wave(level)
+
+
+func _on_wave_spawner_wave_done():
+	start_button.visible = true
+	#level += 1

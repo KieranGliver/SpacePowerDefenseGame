@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cj1d8rkihmwgw"]
 
-[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_6f0px"]
-[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/space_invader.png" id="1_i5vgi"]
+[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_6f0px"]
+[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader.png" id="1_i5vgi"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_h3gkj"]
 [ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
 

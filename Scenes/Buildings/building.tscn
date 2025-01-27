@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dcybrtx6cdqpv"]
 
-[ext_resource type="Script" path="res://Scripts/building.gd" id="1_qff6q"]
-[ext_resource type="Texture2D" uid="uid://gmkebxm45hft" path="res://Sprites/hex_sprites/blank_hex.png" id="2_ngonp"]
+[ext_resource type="Script" path="res://Scripts/Buildings/building.gd" id="1_pfwks"]
+[ext_resource type="Texture2D" uid="uid://gmkebxm45hft" path="res://Sprites/prototype/hex_sprites/blank_hex.png" id="2_6a0k1"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_b6w3n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ny7f"]
@@ -14,12 +14,12 @@ texture = SubResource("CanvasTexture_1t4n7")
 modulate_color = Color(0, 0.592157, 0.596078, 1)
 
 [node name="Building" type="Node2D" groups=["building"]]
-script = ExtResource("1_qff6q")
+script = ExtResource("1_pfwks")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0, 0.615686, 0.619608, 1)
-texture = ExtResource("2_ngonp")
+texture = ExtResource("2_6a0k1")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_b6w3n")]
 collision_layer = 4

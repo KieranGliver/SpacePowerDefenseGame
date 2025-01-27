@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cj1d8rkihmwgw"]
+[gd_scene load_steps=13 format=3 uid="uid://cj1d8rkihmwgw"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_6f0px"]
-[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader.png" id="1_i5vgi"]
+[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader_1.png" id="2_g6sav"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_h3gkj"]
 [ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
+[ext_resource type="Script" path="res://Scenes/Enemy/ProgressBarDisplay.gd" id="5_wskst"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2slw"]
 size = Vector2(48, 28)
@@ -15,12 +16,24 @@ height = 50.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ykmfc"]
 height = 40.0
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_5iw80"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h2jfn"]
+texture = SubResource("CanvasTexture_5iw80")
+modulate_color = Color(1, 0.0901961, 0.0588235, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nht4w"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yfb0i"]
+texture = SubResource("CanvasTexture_nht4w")
+modulate_color = Color(0.176471, 0.698039, 0.803922, 1)
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_6f0px")
 value = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_i5vgi")
+texture = ExtResource("2_g6sav")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
@@ -42,7 +55,47 @@ collision_mask = 4
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ykmfc")
 
+[node name="ShieldTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="BarDisplay" type="Node2D" parent="."]
+script = ExtResource("5_wskst")
+
+[node name="HealthBar" type="ProgressBar" parent="BarDisplay"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxTexture_h2jfn")
+value = 50.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="BarDisplay"]
+offset_left = -24.0
+offset_top = -29.0
+offset_right = 24.0
+offset_bottom = -25.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_yfb0i")
+value = 50.0
+show_percentage = false
+
+[node name="DisplayTimer" type="Timer" parent="BarDisplay"]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="timeout" from="ShieldTimer" to="." method="_on_shield_timer_timeout"]
+[connection signal="value_changed" from="BarDisplay/HealthBar" to="BarDisplay" method="_on_value_changed"]
+[connection signal="value_changed" from="BarDisplay/ShieldBar" to="BarDisplay" method="_on_value_changed"]
+[connection signal="timeout" from="BarDisplay/DisplayTimer" to="BarDisplay" method="_on_display_timer_timeout"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]

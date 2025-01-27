@@ -72,6 +72,7 @@ func _on_sell_button_pressed(building: Building):
 	tile_map.set_cell(Data.TILE_MAP_LAYER, building.tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2.ZERO)
 	building.queue_free()
 	building_popup.queue_free()
+	power_systems = tile_map.find_connections()
 
 func _on_upgrade_button_pressed(building: Building):
 	pass
@@ -205,7 +206,7 @@ func add_system_charge(building: Building, amount: float):
 		battery.add_charge(transfer)
 		remaining_amount -= transfer
 	
-	return remaining_amount == 0.0
+	return true
 
 # Consumes charge from a power system connected to the given building
 func consume_system_charge(building: Building, amount: float):
@@ -233,7 +234,7 @@ func consume_system_charge(building: Building, amount: float):
 		
 		battery.add_charge(-transfer)
 		remaining_amount -= transfer
-	return remaining_amount == 0.0
+	return true
 
 # Finds the power system associated with a given building
 func find_building_system(building:Building):

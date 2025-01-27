@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var SPEED : float = 40.0
-@export var hp = 1
+@export var hp: float = 1
 @export var knockback_resistance : float = 4
 @export var value = 1
 var knockback : float = 0
@@ -35,10 +35,10 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func _on_hurt_box_hurt(damage: int, knockback_mag: float, knockback_dir: Vector2):
+func _on_hurt_box_hurt(damage: float, knockback_mag: float, knockback_dir: Vector2):
 	damage(damage, knockback_mag, knockback_dir)
 
-func damage(damage: int, knockback_mag: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO):
+func damage(damage: float, knockback_mag: float = 0.0, knockback_dir: Vector2 = Vector2.ZERO):
 	hp -= damage
 	set_knockback(knockback_mag, knockback_dir)
 	if hp <= 0:

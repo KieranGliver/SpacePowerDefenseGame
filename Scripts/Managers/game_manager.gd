@@ -11,6 +11,7 @@ const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
 const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
 const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual.tscn")
 const MINIGUN_PREFAB = preload("res://Scenes/Buildings/Weapons/minigun.tscn")
+const LASER_PREFAB = preload("res://Scenes/Buildings/Weapons/laser.tscn")
 
 # Variables for game state
 var currency : int = 0 # Player's available currency
@@ -110,6 +111,8 @@ func setup_building(hex_id: int, building_instant: Building):
 		Data.hex_ids.SNIPER:
 			building_instant.tag = "sniper"
 		Data.hex_ids.LASER:
+			var laser_instant = LASER_PREFAB.instantiate()
+			building_instant.add_child(laser_instant)
 			building_instant.tag = "laser"
 
 # Adds currency to the player and updates the UI

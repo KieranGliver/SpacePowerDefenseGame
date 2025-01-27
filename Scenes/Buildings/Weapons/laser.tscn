@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://ducimqn7uokfk"]
-
-[ext_resource type="Texture2D" uid="uid://kor1rs2c1ag1" path="res://Sprites/prototype/weapon.png" id="1_fbhph"]
-[ext_resource type="Script" path="res://Scripts/Buildings/Laser.gd" id="2_0y0kf"]
-
-[node name="Laser" type="Sprite2D"]
-texture = ExtResource("1_fbhph")
-script = ExtResource("2_0y0kf")
-damage_val = 1

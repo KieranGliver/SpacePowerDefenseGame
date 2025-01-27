@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://tflg4thayjvg"]
+
+[ext_resource type="Script" path="res://Scripts/Buildings/projectile.gd" id="1_s6jik"]
+[ext_resource type="Texture2D" uid="uid://cfbqmek3a1obq" path="res://Sprites/prototype/frame0000.png" id="2_55tem"]
+[ext_resource type="Texture2D" uid="uid://b2gi2fgtv5hdc" path="res://Sprites/prototype/frame0001.png" id="3_6v571"]
+[ext_resource type="Texture2D" uid="uid://sd0k4jfwg02j" path="res://Sprites/prototype/frame0002.png" id="4_5e5dx"]
+[ext_resource type="Texture2D" uid="uid://dges3l2q3ibql" path="res://Sprites/prototype/frame0003.png" id="5_uf578"]
+[ext_resource type="Texture2D" uid="uid://cmcq5xh6k7rmn" path="res://Sprites/prototype/frame0004.png" id="6_di2wf"]
+[ext_resource type="Texture2D" uid="uid://dnpniwdw3i6t1" path="res://Sprites/prototype/frame0005.png" id="7_sjf2g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2vrwq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_55tem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6v571")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5e5dx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uf578")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_di2wf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sjf2g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e65m7"]
+radius = 4.0
+height = 24.0
+
+[node name="Projectile" type="Area2D" groups=["attack"]]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_s6jik")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2vrwq")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e65m7")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

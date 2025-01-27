@@ -10,8 +10,8 @@ extends Node2D
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
 const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
 const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual.tscn")
-const MINIGUN_PREFAB = preload("res://Scenes/Buildings/Weapons/minigun.tscn")
-const LASER_PREFAB = preload("res://Scenes/Buildings/Weapons/laser.tscn")
+const AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
+const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
 
 # Variables for game state
 var currency : int = 0 # Player's available currency
@@ -105,13 +105,18 @@ func setup_building(hex_id: int, building_instant: Building):
 			building_instant.add_child(manual_instant)
 			building_instant.tag = "manual"
 		Data.hex_ids.MINIGUN:
-			var minigun_instant = MINIGUN_PREFAB.instantiate()
+			var minigun_instant = AUTO_HITSCAN_PREFAB.instantiate()
+			minigun_instant.get_child(0).building_owner = building_instant
 			building_instant.add_child(minigun_instant)
 			building_instant.tag = "minigun"
 		Data.hex_ids.SNIPER:
+			var sniper_instant = AUTO_HITSCAN_PREFAB.instantiate()
+			sniper_instant.get_child(0).building_owner = building_instant
+			building_instant.add_child(sniper_instant)
 			building_instant.tag = "sniper"
 		Data.hex_ids.LASER:
-			var laser_instant = LASER_PREFAB.instantiate()
+			var laser_instant = AUTO_CONTINOUS_PREFAB.instantiate()
+			laser_instant.get_child(0).building_owner = building_instant
 			building_instant.add_child(laser_instant)
 			building_instant.tag = "laser"
 

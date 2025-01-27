@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bor33ifgakyq6"]
+
+[ext_resource type="Texture2D" uid="uid://kor1rs2c1ag1" path="res://Sprites/prototype/weapon.png" id="1_e006n"]
+[ext_resource type="Script" path="res://Scripts/Buildings/auto_weapon.gd" id="2_ioaky"]
+
+[node name="AutoWeapon" type="Sprite2D"]
+texture = ExtResource("1_e006n")
+script = ExtResource("2_ioaky")
+
+[node name="InternalTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ExternalTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="InternalTimer" to="." method="_on_internal_timer_timeout"]
+[connection signal="timeout" from="ExternalTimer" to="." method="_on_external_timer_timeout"]

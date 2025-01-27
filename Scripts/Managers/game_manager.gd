@@ -103,21 +103,37 @@ func setup_building(hex_id: int, building_instant: Building):
 		Data.hex_ids.MANUAL:
 			var manual_instant = MANUAL_PREFAB.instantiate()
 			manual_instant.building_owner = building_instant
+			manual_instant.damage_val = Data.weapon_stats["manual"]["damage"]
+			manual_instant.charge_cost = Data.weapon_stats["manual"]["charge"]
 			building_instant.add_child(manual_instant)
 			building_instant.tag = "manual"
 		Data.hex_ids.MINIGUN:
 			var minigun_instant = AUTO_HITSCAN_PREFAB.instantiate()
 			minigun_instant.get_child(0).building_owner = building_instant
+			minigun_instant.get_child(0).damage_val = Data.weapon_stats["minigun"]["damage"]
+			minigun_instant.get_child(0).charge_cost = Data.weapon_stats["minigun"]["charge"]
+			minigun_instant.get_child(0).cooldown = Data.weapon_stats["minigun"]["cooldown"]
+			minigun_instant.get_child(0).attack_speed = Data.weapon_stats["minigun"]["attack_speed"]
+			minigun_instant.get_child(0).ammo_amount = Data.weapon_stats["minigun"]["ammo"]
 			building_instant.add_child(minigun_instant)
 			building_instant.tag = "minigun"
 		Data.hex_ids.SNIPER:
 			var sniper_instant = AUTO_HITSCAN_PREFAB.instantiate()
 			sniper_instant.get_child(0).building_owner = building_instant
+			sniper_instant.get_child(0).damage_val = Data.weapon_stats["sniper"]["damage"]
+			sniper_instant.get_child(0).charge_cost = Data.weapon_stats["sniper"]["charge"]
+			sniper_instant.get_child(0).cooldown = Data.weapon_stats["sniper"]["cooldown"]
+			sniper_instant.get_child(0).attack_speed = Data.weapon_stats["sniper"]["attack_speed"]
+			sniper_instant.get_child(0).ammo_amount = Data.weapon_stats["sniper"]["ammo"]
 			building_instant.add_child(sniper_instant)
 			building_instant.tag = "sniper"
 		Data.hex_ids.LASER:
 			var laser_instant = AUTO_CONTINOUS_PREFAB.instantiate()
 			laser_instant.get_child(0).building_owner = building_instant
+			laser_instant.get_child(0).damage_val = Data.weapon_stats["laser"]["damage"]
+			laser_instant.get_child(0).charge_cost = Data.weapon_stats["laser"]["charge"]
+			laser_instant.get_child(0).cooldown = Data.weapon_stats["laser"]["cooldown"]
+			laser_instant.get_child(0).attack_duration = Data.weapon_stats["laser"]["attack_duration"]
 			building_instant.add_child(laser_instant)
 			building_instant.tag = "laser"
 

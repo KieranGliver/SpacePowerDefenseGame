@@ -6,5 +6,3 @@
 [node name="ManualWeapon" type="Sprite2D"]
 texture = ExtResource("1_45ytj")
 script = ExtResource("2_h8qd2")
-damage_val = 10.0
-charge_cost = 10.0

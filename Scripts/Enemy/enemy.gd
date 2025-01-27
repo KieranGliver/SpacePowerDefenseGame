@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var SPEED : float = 40.0
-@export var hp: float = 1
+@export var hp: float = 10
 @export var knockback_resistance : float = 4
 @export var value = 1
 var knockback : float = 0

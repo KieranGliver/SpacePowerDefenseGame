@@ -21,6 +21,9 @@ func _process(delta):
 		get_tree().get_first_node_in_group("game_manager").add_system_charge(self, charge_rate*delta)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):
+	damage(damage)
+
+func damage(damage):
 	hp -= damage
 	if hp <= 0:
 		destroy_building()

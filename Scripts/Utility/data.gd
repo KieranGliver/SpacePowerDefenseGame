@@ -9,7 +9,8 @@ const TILE_MAP_ATLAS_ID = 0
 
 const BASIC_ENEMY = preload("res://Scenes/Enemy/BasicEnemy.tscn")
 const SHIELD_ENEMY = preload("res://Scenes/Enemy/ShieldedEnemy.tscn")
-const SLOW_ENEMY = preload("res://Scenes/Enemy/SlowEnemy.tscn")
+const TANK_ENEMY = preload("res://Scenes/Enemy/SlowEnemy.tscn")
+const PROJECTILE_ENEMY = preload("res://Scenes/Enemy/ProjectileEnemy.tscn")
 
 var weapon_stats = {
 	"minigun": {
@@ -46,6 +47,15 @@ var wave_data = [
 		{
 			"time_start": 0,
 			"time_end": 30,
+			"enemy": PROJECTILE_ENEMY,
+			"enemy_num": 3,
+			"enemy_spawn_delay": 3
+		}
+	],
+	[
+		{
+			"time_start": 0,
+			"time_end": 30,
 			"enemy": BASIC_ENEMY,
 			"enemy_num": 3,
 			"enemy_spawn_delay": 3
@@ -53,7 +63,7 @@ var wave_data = [
 		{
 			"time_start": 10,
 			"time_end": 30,
-			"enemy": SLOW_ENEMY,
+			"enemy": TANK_ENEMY,
 			"enemy_num": 1,
 			"enemy_spawn_delay": 5
 		},

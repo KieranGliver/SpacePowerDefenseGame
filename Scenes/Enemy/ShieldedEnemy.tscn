@@ -22,15 +22,12 @@ max_hp = 5.0
 texture = ExtResource("2_ebnxi")
 
 [node name="CollisionShape2D" parent="." index="1"]
-position = Vector2(0, 0)
 shape = SubResource("CapsuleShape2D_k8pss")
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-rotation = 0.0
 shape = SubResource("CapsuleShape2D_mr2r1")
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
-rotation = 0.0
 shape = SubResource("CapsuleShape2D_ex8f5")
 
 [node name="BarDisplay" parent="." index="5"]

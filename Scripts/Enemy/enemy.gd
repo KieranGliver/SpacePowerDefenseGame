@@ -23,6 +23,7 @@ var shield_recharge: bool = true
 @onready var shield_bar = $BarDisplay/ShieldBar
 
 var target_pos : Vector2 = Vector2.ZERO
+var building_target : Building = null
 
 func _ready():
 	find_target()
@@ -72,9 +73,9 @@ func set_knockback(magnitude: float, direction: Vector2):
 	knockback_dir = direction
 
 func find_target():
-	var target_node = Methods.find_closest("building", position)[0]
-	if target_node:
-		target_pos = target_node.global_position
+	building_target = Methods.find_closest("building", position)[0]
+	if building_target:
+		target_pos = building_target.global_position
 	else:
 		target_pos = Vector2.ZERO
 

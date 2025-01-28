@@ -2,7 +2,34 @@ extends Node2D
 
 @export var spawns: Array[Wave_Info] = []
 
+@onready var timer = $Timer
+
 var time = 0
+var time_end = 0
+
+signal wave_done()
+
+func start_wave(level: int):
+	spawns = []
+	time = 0
+	time_end = 0
+	
+	var wave_data_array = Data.wave_data[level]
+	
+	for wave_data in wave_data_array:
+		var wave_info = Wave_Info.new()
+		wave_info.time_start = wave_data["time_start"]
+		wave_info.time_end = wave_data["time_end"]
+		
+		if wave_info.time_end > time_end:
+			time_end = wave_info.time_end
+		
+		wave_info.enemy = wave_data["enemy"]
+		wave_info.enemy_num = wave_data["enemy_num"]
+		wave_info.enemy_spawn_delay = wave_data["enemy_spawn_delay"]
+		spawns.append(wave_info)
+	
+	timer.start()
 
 func _on_timer_timeout():
 	time += 1
@@ -21,6 +48,9 @@ func _on_timer_timeout():
 					enemy_spawn.global_position = get_random_position()
 					add_child(enemy_spawn)
 					counter += 1
+	if time >= time_end and get_tree().get_nodes_in_group("enemy").size() <= 0:
+		timer.stop()
+		emit_signal("wave_done")
 
 
 func get_random_position():

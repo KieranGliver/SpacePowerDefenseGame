@@ -27,6 +27,8 @@ func _process(delta):
 				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
 				beam.points = [get_barrel_end_position(), to_local(enemy.global_position)]
 				enemy.damage(process_damage)
+			else:
+				beam.visible = false
 		else:
 			beam.visible = false
 

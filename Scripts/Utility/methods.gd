@@ -30,3 +30,11 @@ func get_adjacent_hexes(tile_pos: Vector2):
 		return [Vector2(i-1,j-1), Vector2(i,j-1), Vector2(i+1,j-1), Vector2(i+1,j), Vector2(i,j+1), Vector2(i-1,j)]
 	else:
 		return [Vector2(i-1,j), Vector2(i,j-1), Vector2(i+1,j), Vector2(i+1,j+1), Vector2(i,j+1), Vector2(i-1,j+1)]
+
+func find_building(tile_pos: Vector2):
+	var building_array = get_tree().get_nodes_in_group("building")
+	var possible_building_array = building_array.filter(func(building: Building): return building.tile_pos == tile_pos)
+	if possible_building_array.size() <= 0:
+		return null
+	else:
+		return possible_building_array[0]

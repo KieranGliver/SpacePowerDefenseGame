@@ -1,21 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://0v2s4ifhgy8h"]
+[gd_scene load_steps=9 format=3 uid="uid://0v2s4ifhgy8h"]
 
 [ext_resource type="PackedScene" uid="uid://cved15jmsk7ep" path="res://Scenes/UI/hex_tile_map.tscn" id="1_23a8a"]
 [ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_88mrd"]
 [ext_resource type="PackedScene" uid="uid://c4qar084b8sbt" path="res://Scenes/UI/Overlay/HexMenu.tscn" id="2_yfjim"]
 [ext_resource type="PackedScene" uid="uid://bovrdbn26tthk" path="res://Scenes/Enemy/wave_spawner.tscn" id="3_jtl8h"]
-[ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="4_4e1xk"]
-[ext_resource type="Script" path="res://Scripts/Enemy/wave_info.gd" id="5_v1hpw"]
+[ext_resource type="PackedScene" uid="uid://b4kpjs0vvecns" path="res://Scenes/UI/Overlay/start_button.tscn" id="3_u8lrq"]
+[ext_resource type="Script" path="res://Scenes/GameScenes/TimeDisplay.gd" id="4_1bsnx"]
 [ext_resource type="Script" path="res://Scripts/Managers/Camera_manager.gd" id="6_5fofq"]
 [ext_resource type="PackedScene" uid="uid://6c1t8nkvmvi0" path="res://Scenes/UI/Overlay/curreny_label.tscn" id="8_vyvfu"]
-
-[sub_resource type="Resource" id="Resource_s7ns0"]
-script = ExtResource("5_v1hpw")
-time_start = 0
-time_end = 60
-enemy = ExtResource("4_4e1xk")
-enemy_num = 10
-enemy_spawn_delay = 3
 
 [node name="Main" type="Node"]
 
@@ -42,17 +34,64 @@ offset_left = 0.0
 offset_right = 222.0
 grow_horizontal = 1
 
+[node name="StartButton" parent="CanvasLayer/UI" instance=ExtResource("3_u8lrq")]
+layout_mode = 1
+offset_top = 63.0
+offset_bottom = 136.0
+
+[node name="TimeDisplay" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -121.0
+offset_bottom = 70.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 48
+text = "99:99"
+script = ExtResource("4_1bsnx")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/UI/TimeDisplay"]
+autostart = true
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_right = 83.0
+offset_bottom = 70.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "Wave 0"
+
+[node name="WinLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -45.5
+offset_right = 151.0
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "YOU WIN!"
+
 [node name="GM" type="Node2D" parent="." groups=["game_manager"]]
 script = ExtResource("1_88mrd")
 
 [node name="TileMap" parent="GM" instance=ExtResource("1_23a8a")]
 position = Vector2(-26, -23.5)
 scale = Vector2(0.5, 0.5)
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -65537, 0, 0, 65534, 0, 0, -2, 0, 0, 131070, 0, 0, 131071, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 65539, 0, 0, 3, 0, 0, -65533, 0, 0, -131069, 0, 0, -131070, 0, 0, -196607, 0, 0, -196608, 0, 0, -131073, 0, 0, -65538, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196606, 0, 0, 196607, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 4, 0, 0, -65532, 0, 0, 65540, 0, 0, 131076, 0, 0, 131075, 0, 0, 262143, 0, 0, 262144, 0, 0, 262142, 0, 0, 196605, 0, 0, 131068, 0, 0, 65532, 0, 0, -4, 0, 0, 196604, 0, 0, -65540, 0, 0, -131075, 0, 0, -131074, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -196606, 0, 0, -196605, 0, 0, -131068, 0, 0)
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -65537, 0, 0, 65534, 0, 0, -2, 0, 0, 131070, 0, 0, 131071, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 65539, 0, 0, 3, 0, 0, -65533, 0, 0, -131069, 0, 0, -131070, 0, 0, -196607, 0, 0, -131073, 0, 0, -65538, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196606, 0, 0, 196607, 0, 0, 196608, 0, 0, -196608, 0, 0)
 
 [node name="WaveSpawner" parent="GM" instance=ExtResource("3_jtl8h")]
 scale = Vector2(0.5, 0.5)
-spawns = Array[ExtResource("5_v1hpw")]([SubResource("Resource_s7ns0")])
 
 [node name="Camera2D" type="Camera2D" parent="GM"]
 scale = Vector2(0.5, 0.5)
@@ -63,3 +102,8 @@ limit_bottom = 360
 script = ExtResource("6_5fofq")
 
 [connection signal="button_pressed" from="CanvasLayer/UI/HexMenu" to="GM" method="_on_hex_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/StartButton/MarginContainer/Button" to="GM" method="_on_start_button_pressed"]
+[connection signal="timeout" from="CanvasLayer/UI/TimeDisplay/Timer" to="CanvasLayer/UI/TimeDisplay" method="_on_timer_timeout"]
+[connection signal="wave_done" from="GM/WaveSpawner" to="GM" method="_on_wave_spawner_wave_done"]
+
+[editable path="CanvasLayer/UI/StartButton"]

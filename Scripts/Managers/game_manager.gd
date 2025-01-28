@@ -5,6 +5,10 @@ extends Node2D
 @onready var camera : Camera2D = $Camera2D # The game's main camera
 @onready var canvas_layer: CanvasLayer = $"../CanvasLayer" # Layer for UI and overlays
 @onready var currency_label = $"../CanvasLayer/UI/CurrenyLabel" # UI label displaying current currency
+@onready var wave_spawner = $WaveSpawner
+@onready var start_button = $"../CanvasLayer/UI/StartButton"
+@onready var win_label = $"../CanvasLayer/WinLabel"
+@onready var wave_label = $"../CanvasLayer/UI/WaveLabel"
 
 # Preloaded prefabs for various objects
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
@@ -12,20 +16,26 @@ const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
 const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
 const AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
 const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
+const BUILDING_POPUP_PREFAB = preload("res://Scenes/UI/Overlay/building_popup.tscn")
 
 # Variables for game state
 var currency : int = 0 # Player's available currency
+var level : int = 0
 var power_systems = [] # Tracks connected power systems
 var hex_icon : Node # Temporary icon for hex placement
 var placement_state : bool = false # Whether a hex is being placed
+var building_popup: Node
 
 func _ready():
 	add_currency(10000)
+	set_wave_label()
 
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-			handle_mouse_release()
+			handle_mouse_left_release()
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_pressed():
+			handle_mouse_right_click()
 
 # Triggered when a building is destroyed, updates the grid and power systems
 func _on_building_destroyed(tile_pos: Vector2):
@@ -36,10 +46,38 @@ func _on_building_destroyed(tile_pos: Vector2):
 func _on_hex_menu_button_pressed(button_id: int):
 	start_placement(button_id)
 
-func handle_mouse_release():
+func handle_mouse_left_release():
 	if placement_state:
 		place_hex()
 	clean_up_placement_state()
+
+func handle_mouse_right_click():
+	if building_popup != null:
+		building_popup.queue_free()
+	var global_clicked = get_local_mouse_position()
+	var pos_clicked = tile_map.local_to_map(tile_map.to_local(global_clicked))
+	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
+	
+	if tile_data and tile_data.get_custom_data("Occupied"):
+		create_popup(pos_clicked)
+
+func create_popup(tile_pos):
+	building_popup = BUILDING_POPUP_PREFAB.instantiate()
+	building_popup.global_position = get_global_mouse_position()
+	building_popup.building = Methods.find_building(tile_pos)
+	building_popup.connect("sell_button_pressed", _on_sell_button_pressed)
+	building_popup.connect("upgrade_button_pressed", _on_upgrade_button_pressed)
+	add_child(building_popup)
+	building_popup.set_name_text(building_popup.building.tag)
+
+func _on_sell_button_pressed(building: Building):
+	tile_map.set_cell(Data.TILE_MAP_LAYER, building.tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2.ZERO)
+	building.queue_free()
+	building_popup.queue_free()
+	power_systems = tile_map.find_connections()
+
+func _on_upgrade_button_pressed(building: Building):
+	pass
 
 # Places a hex on the grid if the mouse position is valid
 func place_hex():
@@ -170,7 +208,7 @@ func add_system_charge(building: Building, amount: float):
 		battery.add_charge(transfer)
 		remaining_amount -= transfer
 	
-	return remaining_amount == 0.0
+	return true
 
 # Consumes charge from a power system connected to the given building
 func consume_system_charge(building: Building, amount: float):
@@ -198,7 +236,7 @@ func consume_system_charge(building: Building, amount: float):
 		
 		battery.add_charge(-transfer)
 		remaining_amount -= transfer
-	return remaining_amount == 0.0
+	return true
 
 # Finds the power system associated with a given building
 func find_building_system(building:Building):
@@ -206,3 +244,20 @@ func find_building_system(building:Building):
 		if system.has(building):
 			return system
 	return []
+
+
+func _on_start_button_pressed():
+	start_button.visible = false
+	wave_spawner.start_wave(level)
+
+
+func _on_wave_spawner_wave_done():
+	level += 1
+	set_wave_label()
+	if level > Data.wave_data.size():
+		win_label.visible = true
+	else:
+		start_button.visible = true
+
+func set_wave_label():
+	wave_label.text = "Wave " + str(level+1)

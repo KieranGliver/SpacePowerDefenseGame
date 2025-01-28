@@ -7,7 +7,8 @@ extends Node2D
 @onready var currency_label = $"../CanvasLayer/UI/CurrenyLabel" # UI label displaying current currency
 @onready var wave_spawner = $WaveSpawner
 @onready var start_button = $"../CanvasLayer/UI/StartButton"
-
+@onready var win_label = $"../CanvasLayer/WinLabel"
+@onready var wave_label = $"../CanvasLayer/UI/WaveLabel"
 
 # Preloaded prefabs for various objects
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
@@ -27,6 +28,7 @@ var building_popup: Node
 
 func _ready():
 	add_currency(10000)
+	set_wave_label()
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -250,5 +252,12 @@ func _on_start_button_pressed():
 
 
 func _on_wave_spawner_wave_done():
-	start_button.visible = true
-	#level += 1
+	level += 1
+	set_wave_label()
+	if level > Data.wave_data.size():
+		win_label.visible = true
+	else:
+		start_button.visible = true
+
+func set_wave_label():
+	wave_label.text = "Wave " + str(level+1)

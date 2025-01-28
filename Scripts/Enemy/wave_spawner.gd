@@ -48,7 +48,7 @@ func _on_timer_timeout():
 					enemy_spawn.global_position = get_random_position()
 					add_child(enemy_spawn)
 					counter += 1
-	if time >= time_end:
+	if time >= time_end and get_tree().get_nodes_in_group("enemy").size() <= 0:
 		timer.stop()
 		emit_signal("wave_done")
 

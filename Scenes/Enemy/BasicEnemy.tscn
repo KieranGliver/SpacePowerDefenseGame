@@ -18,6 +18,7 @@ height = 42.0
 [node name="Enemy" instance=ExtResource("1_d15rj")]
 SPEED = 60.0
 max_shield = 0.0
+currency_value = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_67w0f")

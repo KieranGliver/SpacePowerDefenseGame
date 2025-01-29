@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_6f0px"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_h3gkj"]
 [ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
-[ext_resource type="Script" path="res://Scenes/Enemy/ProgressBarDisplay.gd" id="5_wskst"]
+[ext_resource type="Script" path="res://Scripts/ProgressBarDisplay.gd" id="4_ayiot"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_5iw80"]
 
@@ -41,7 +41,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="BarDisplay" type="Node2D" parent="."]
-script = ExtResource("5_wskst")
+script = ExtResource("4_ayiot")
 
 [node name="HealthBar" type="ProgressBar" parent="BarDisplay"]
 anchors_preset = 7

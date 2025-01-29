@@ -1,10 +1,14 @@
 extends Node
 
+var wave_number:int = 0
+var currency: int = 0
+var ore: float = 0
+
 enum hex_ids {BLANK, ORE, HEART, WIRE, BATTERY, GENERATOR, MINER, ENHANCER, MINIGUN, SNIPER, LASER, MANUAL}
 
-var hex_name = ["blank", "ore", "heart", "wire", "battery", "generator", "miner", "enhancer", "minigun", "sniper", "laser", "manual"]
+const hex_name = ["blank", "ore", "heart", "wire", "battery", "generator", "miner", "enhancer", "minigun", "sniper", "laser", "manual"]
 
-var cost = {
+const cost = {
 	"wire": 5,
 	"battery": 50,
 	"generator": 50,
@@ -24,7 +28,7 @@ const SHIELD_ENEMY = preload("res://Scenes/Enemy/ShieldedEnemy.tscn")
 const TANK_ENEMY = preload("res://Scenes/Enemy/SlowEnemy.tscn")
 const PROJECTILE_ENEMY = preload("res://Scenes/Enemy/ProjectileEnemy.tscn")
 
-var weapon_stats = {
+const weapon_stats = {
 	"minigun": {
 		"damage": 3.0,
 		"charge": 5.0,
@@ -54,7 +58,7 @@ var weapon_stats = {
 	}
 }
 
-var wave_data = [
+const wave_data = [
 	[ # Wave 1: Basic enemies - 0 to 60s
 		{
 			"time_start": 0,

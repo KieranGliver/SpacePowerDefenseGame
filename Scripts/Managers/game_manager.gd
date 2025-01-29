@@ -1,42 +1,38 @@
 extends Node2D
 
+class_name GameManager
+
 @onready var tile_map : TileMap = $TileMap # The tilemap used to manage the game grid
-@onready var hex_menu : PanelContainer  = $"../CanvasLayer/UI/HexMenu" # The UI menu for selecting hexes
 @onready var camera : Camera2D = $Camera2D # The game's main camera
-@onready var canvas_layer: CanvasLayer = $"../CanvasLayer" # Layer for UI and overlays
-@onready var currency_label = $"../CanvasLayer/UI/VBoxContainer/CurrenyLabel"# UI label displaying current currency
-@onready var resource_label = $"../CanvasLayer/UI/VBoxContainer/ResourceLabel"
 @onready var wave_spawner = $WaveSpawner
-@onready var start_button = $"../CanvasLayer/UI/StartButton"
-@onready var win_label = $"../CanvasLayer/WinLabel"
-@onready var wave_label = $"../CanvasLayer/UI/WaveLabel"
-@onready var lose_label = $"../CanvasLayer/LoseLabel"
+@onready var um: UiManager = $"../CanvasLayer/UI"
 
 # Preloaded prefabs for various objects
-const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
 const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
 const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
 const AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
 const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
-const BUILDING_POPUP_PREFAB = preload("res://Scenes/UI/Overlay/building_popup.tscn")
+
 
 # Variables for game state
-var currency : int = 0 # Player's available currency
-var resource : float = 0
-var level : int = 0
 var power_systems = [] # Tracks connected power systems
-var hex_icon : Node # Temporary icon for hex placement
 var placement_state : bool = false # Whether a hex is being placed
-var building_popup: Node
+
+signal currency_changed()
+signal ore_changed()
+signal wave_changed()
 
 func _ready():
-	add_currency(10000)
-	add_resource(100)
-	set_wave_label()
 	setup()
 
 func setup():
 	spawn_building(Vector2.ZERO, Data.hex_ids.HEART)
+	Data.currency = 10000
+	emit_signal("currency_changed")
+	Data.ore = 100
+	emit_signal("ore_changed")
+	Data.wave_number = 0
+	emit_signal("wave_changed")
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -48,78 +44,51 @@ func _input(event):
 # Triggered when a building is destroyed, updates the grid and power systems
 func _on_building_destroyed(tile_pos: Vector2):
 	tile_map.set_cell(Data.TILE_MAP_LAYER, tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2(0, 0))
-	print(tile_pos)
 	if tile_pos == Vector2.ZERO:
-		print("lose")
 		defeat()
 	power_systems = tile_map.find_connections()
 
 func defeat():
-	lose_label.visible = true
+	um.update_visiblity(true, um.ui_atlas[um.ui_id.LOSE])
 	get_tree().paused = true
-
-# Handles pressing a button in the hex menu
-func _on_hex_menu_button_pressed(button_id: int):
-	start_placement(button_id)
 
 func handle_mouse_left_release():
 	if placement_state:
 		place_hex()
-	clean_up_placement_state()
+	stop_placement()
 
 func handle_mouse_right_click():
-	if building_popup != null:
-		building_popup.queue_free()
+	um.cleanup_popup()
+	
 	var global_clicked = get_local_mouse_position()
 	var pos_clicked = tile_map.local_to_map(tile_map.to_local(global_clicked))
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
 	
 	if tile_data and tile_data.get_custom_data("Occupied"):
-		create_popup(pos_clicked)
-
-func create_popup(tile_pos):
-	building_popup = BUILDING_POPUP_PREFAB.instantiate()
-	building_popup.global_position = get_global_mouse_position()
-	building_popup.building = Methods.find_building(tile_pos)
-	building_popup.connect("sell_button_pressed", _on_sell_button_pressed)
-	building_popup.connect("upgrade_button_pressed", _on_upgrade_button_pressed)
-	add_child(building_popup)
-	building_popup.set_name_text(building_popup.building.tag)
-
-func _on_sell_button_pressed(building: Building):
-	building.queue_free()
-	building_popup.queue_free()
-	power_systems = tile_map.find_connections()
-
-func _on_upgrade_button_pressed(building: Building):
-	pass
+		um.create_popup(pos_clicked)
 
 # Places a hex on the grid if the mouse position is valid
 func place_hex():
 	var global_clicked = get_local_mouse_position()
 	var pos_clicked = tile_map.local_to_map(tile_map.to_local(global_clicked))
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
-	
+	var hex_id = um.hex_icon.hex_id
 	if can_place_hex(tile_data):
-		add_currency(-Data.cost[Data.hex_name[hex_icon.hex_id]])
-		spawn_building(pos_clicked, hex_icon.hex_id)
+		add_currency(-Data.cost[Data.hex_name[hex_id]])
+		spawn_building(pos_clicked, hex_id)
 
 # Checks if a hex can be placed on the given tile and currency is available
 func can_place_hex(tile_data: TileData):
-	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[hex_icon.hex_id]] <= currency
+	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[um.hex_icon.hex_id]] <= Data.currency
 
 # Initializes placement state and creates a temporary hex icon
 func start_placement(hex_id: int):
-	hex_icon = HEX_ICON_PREFAB.instantiate()
-	hex_icon.hex_id = hex_id
-	hex_icon.frame = hex_id
-	canvas_layer.add_child(hex_icon)
+	um.create_hex_icon(hex_id)
 	placement_state = true
 
 # Cleans up placement state after a placement attempt
-func clean_up_placement_state():
-	if hex_icon != null:
-		hex_icon.queue_free()
+func stop_placement():
+	um.cleanup_hex_icon()
 	placement_state = false
 
 # Spawns a building at the specified position and updates power systems
@@ -203,12 +172,12 @@ func setup_building(hex_id: int, building_instant: Building):
 
 # Adds currency to the player and updates the UI
 func add_currency(value: int):
-	currency += value
-	currency_label.set_text(str(currency))
+	Data.currency += value
+	emit_signal("currency_changed")
 
 func add_resource(value: float):
-	resource += value
-	resource_label.set_text(str(int(resource)))
+	Data.ore += value
+	emit_signal("ore_changed")
 
 # Adds charge to a power system connected to the given building
 func add_system_charge(building: Building, amount: float):
@@ -272,29 +241,27 @@ func find_building_system(building:Building):
 			return system
 	return []
 
-
 func _on_start_button_pressed():
-	start_button.visible = false
-	wave_spawner.start_wave(level)
-
+	um.update_visiblity(false, um.ui_atlas[um.ui_id.START])
+	wave_spawner.start_wave(Data.wave_number)
 
 func _on_wave_spawner_wave_done():
-	level += 1
-	set_wave_label()
-	if level > Data.wave_data.size():
-		win_label.visible = true
-	else:
-		start_button.visible = true
+	increment_wave()
 
-func set_wave_label():
-	wave_label.text = "Wave " + str(level+1)
+func increment_wave():
+	Data.wave_number += 1
+	emit_signal("wave_changed")
+	if Data.wave_number > Data.wave_data.size():
+		um.update_visiblity(true, um.ui_atlas[um.ui_id.WIN])
+	else:
+		um.update_visiblity(true, um.ui_atlas[um.ui_id.START])
 
 func consume_resource(building: Building, amount: float):
 	var tile_pos = building.tile_pos
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, tile_pos)
 	if tile_data:
-		var resource_amount = tile_data.get_custom_data("Resource")
-		if resource_amount >= 0:
-			tile_data.set_custom_data("Resource", maxf(resource_amount - amount, resource_amount))
+		var resource_amount = tile_data.get_custom_data("Ore")
+		if resource_amount > 0:
+			tile_data.set_custom_data("Ore", maxf(resource_amount - amount, 0))
 			return true
 	return false

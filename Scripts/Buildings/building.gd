@@ -3,12 +3,14 @@ extends Node2D
 class_name Building
 
 @export var tag : String = "Invalid"
+@export var level: int = 0
 @export var hp : int = 10
-@export var charge : float = 0
 @export var max_charge : float = 0
 @export var charge_rate : float = 0
 @export var mine_rate: float = 0
 @export var tile_pos : Vector2 = Vector2.ZERO
+
+var charge : float = 0
 
 var weapon: Node = null
 var is_weapon: bool = false
@@ -53,3 +55,18 @@ func add_charge(c: float):
 	enery_bar.value = charge
 	if max_charge == 0:
 		enery_bar.visible = false
+
+func setup(level: int = 0):
+	var building_name = tag
+	self.level = level
+	var building_stats = Data.building_stats[building_name][level]
+	
+	if building_stats:
+		hp = building_stats["health"]
+		max_charge = building_stats["max_charge"]
+		charge_rate = building_stats["charge_rate"]
+		mine_rate = building_stats["mine_rate"]
+	
+	match building_name:
+		Data.hex_name[Data.hex_ids.MANUAL], Data.hex_name[Data.hex_ids.MINIGUN], Data.hex_name[Data.hex_ids.SNIPER], Data.hex_name[Data.hex_ids.LASER]:
+			weapon.setup(building_name, level)

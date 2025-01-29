@@ -9,15 +9,15 @@ enum hex_ids {BLANK, ORE, HEART, WIRE, BATTERY, GENERATOR, MINER, ENHANCER, MINI
 const hex_name = ["blank", "ore", "heart", "wire", "battery", "generator", "miner", "enhancer", "minigun", "sniper", "laser", "manual"]
 
 const cost = {
-	"wire": 5,
-	"battery": 50,
-	"generator": 50,
-	"miner": 50,
-	"enhancer": 50,
-	"minigun": 50,
-	"sniper": 50,
-	"laser": 50,
-	"manual": 50
+	"wire": [5, 5, 5],
+	"battery": [50, 50, 50],
+	"generator": [50, 50, 50],
+	"miner": [50, 50, 50],
+	"enhancer": [50, 50, 50],
+	"minigun": [50, 50, 50],
+	"sniper": [50, 50, 50],
+	"laser": [50, 50, 50],
+	"manual": [50, 50, 50]
 }
 
 const TILE_MAP_LAYER = 0
@@ -28,34 +28,301 @@ const SHIELD_ENEMY = preload("res://Scenes/Enemy/ShieldedEnemy.tscn")
 const TANK_ENEMY = preload("res://Scenes/Enemy/SlowEnemy.tscn")
 const PROJECTILE_ENEMY = preload("res://Scenes/Enemy/ProjectileEnemy.tscn")
 
+const building_stats = {
+	"heart": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"wire": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"battery": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 50,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 50,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 50,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"generator": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 5,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 5,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 5,
+			"mine_rate": 0
+		}
+	],
+	"miner": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": -2,
+			"mine_rate": 1
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": -2,
+			"mine_rate": 1
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": -2,
+			"mine_rate": 1
+		}
+	],
+	"enhancer": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 0,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"minigun": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"sniper": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"laser": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	],
+	"manual": [
+		{ # level 1
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 2
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}, 
+		{ # level 3
+			"health": 10,
+			"max_charge": 10,
+			"charge_rate": 0,
+			"mine_rate": 0
+		}
+	]
+}
+
+
+
 const weapon_stats = {
-	"minigun": {
+	"manual": [
+		{ # Level 1
+		"damage": 10.0,
+		"charge": 20.0
+		},
+		{ # Level 2
+		"damage": 10.0,
+		"charge": 20.0
+		},
+		{ # Level 3
+		"damage": 10.0,
+		"charge": 20.0
+		}
+	],
+	"minigun": [
+		{ # Level 1
 		"damage": 3.0,
 		"charge": 5.0,
 		"range": 250.0,
 		"cooldown": 3.0,
 		"attack_speed": 0.25,
 		"ammo": 3
-	},
-	"sniper": {
+		},
+		{ # Level 2
+		"damage": 3.0,
+		"charge": 5.0,
+		"range": 250.0,
+		"cooldown": 3.0,
+		"attack_speed": 0.25,
+		"ammo": 3
+		},
+		{ # Level 3
+		"damage": 3.0,
+		"charge": 5.0,
+		"range": 250.0,
+		"cooldown": 3.0,
+		"attack_speed": 0.25,
+		"ammo": 3
+		}
+	],
+	"sniper": [
+		{ # Level 1
 		"damage": 10.0,
 		"charge": 20.0,
 		"range": 500.0,
 		"cooldown": 5.0,
 		"attack_speed": 1.0,
 		"ammo": 1
-	},
-	"manual": {
+		},
+		{ # Level 2
 		"damage": 10.0,
-		"charge": 20.0
-	},
-	"laser": {
+		"charge": 20.0,
+		"range": 500.0,
+		"cooldown": 5.0,
+		"attack_speed": 1.0,
+		"ammo": 1
+		},
+		{ # Level 3
+		"damage": 10.0,
+		"charge": 20.0,
+		"range": 500.0,
+		"cooldown": 5.0,
+		"attack_speed": 1.0,
+		"ammo": 1
+		}
+	],
+	"laser": [
+		{ # Level 1
 		"damage": 1.0,
 		"charge": 1.0,
 		"range": 400.0,
 		"cooldown": 3.0,
 		"attack_duration": 10.0,
-	}
+		},
+		{ # Level 2
+		"damage": 1.0,
+		"charge": 1.0,
+		"range": 400.0,
+		"cooldown": 3.0,
+		"attack_duration": 10.0,
+		},
+		{ # Level 3
+		"damage": 1.0,
+		"charge": 1.0,
+		"range": 400.0,
+		"cooldown": 3.0,
+		"attack_duration": 10.0,
+		}
+	]
 }
 
 const wave_data = [

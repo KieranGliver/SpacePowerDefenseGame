@@ -74,12 +74,12 @@ func place_hex():
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
 	var hex_id = um.hex_icon.hex_id
 	if can_place_hex(tile_data):
-		add_currency(-Data.cost[Data.hex_name[hex_id]])
+		add_currency(-Data.cost[Data.hex_name[hex_id]][0])
 		spawn_building(pos_clicked, hex_id)
 
 # Checks if a hex can be placed on the given tile and currency is available
 func can_place_hex(tile_data: TileData):
-	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[um.hex_icon.hex_id]] <= Data.currency
+	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[um.hex_icon.hex_id]][0] <= Data.currency
 
 # Initializes placement state and creates a temporary hex icon
 func start_placement(hex_id: int):
@@ -103,37 +103,18 @@ func spawn_building(tile_map_pos: Vector2, hex_id: int):
 	building_instant.tile_pos = tile_map_pos
 	building_instant.connect("destroyed", _on_building_destroyed)
 	
-	setup_building(hex_id, building_instant)
+	building_instant.tag = Data.hex_name[hex_id]
+	match hex_id:
+		Data.hex_ids.MANUAL, Data.hex_ids.MINIGUN, Data.hex_ids.SNIPER, Data.hex_ids.LASER:
+			add_weapon(hex_id, building_instant)
+	building_instant.setup()
 	
 	# Add the building to the tilemap and update power systems
 	tile_map.add_child(building_instant)
 	power_systems = tile_map.find_connections()
-
-# Configures a building's properties based on its hex ID
-func setup_building(hex_id: int, building_instant: Building):
-	
-	building_instant.tag = Data.hex_name[hex_id]
-	
-	match hex_id:
-		Data.hex_ids.HEART:
-			pass
-		Data.hex_ids.WIRE:
-			pass
-		Data.hex_ids.BATTERY:
-			building_instant.max_charge = 50.0
-		Data.hex_ids.GENERATOR:
-			building_instant.charge_rate = 10.0
-		Data.hex_ids.MINER:
-			building_instant.charge_rate = -1
-			building_instant.mine_rate = 2
-		Data.hex_ids.ENHANCER:
-			pass
-		Data.hex_ids.MANUAL, Data.hex_ids.MINIGUN, Data.hex_ids.SNIPER, Data.hex_ids.LASER:
-			setup_weapon(hex_id, building_instant)
 	
 
-func setup_weapon(hex_id: int, building_instant: Building):
-	var weapon_name = Data.hex_name[hex_id]
+func add_weapon(hex_id: int, building_instant: Building):
 	var weapon_instant : Weapon
 	
 	match hex_id:
@@ -145,22 +126,7 @@ func setup_weapon(hex_id: int, building_instant: Building):
 			weapon_instant = AUTO_CONTINOUS_PREFAB.instantiate()
 	
 	if weapon_instant:
-		var weapon_stats = Data.weapon_stats[weapon_name]
-		
 		weapon_instant.building_owner = building_instant
-		weapon_instant.damage_val = weapon_stats["damage"]
-		weapon_instant.charge_cost = weapon_stats["charge"]
-		
-		if weapon_instant is AutoWeapon:
-			weapon_instant.cooldown = weapon_stats["cooldown"]
-			weapon_instant.range = weapon_stats["range"]
-			
-			if weapon_instant is HitscanAutoWeapon:
-				weapon_instant.attack_speed = weapon_stats["attack_speed"]
-				weapon_instant.ammo_amount = weapon_stats["ammo"]
-			elif weapon_instant is ContinousAutoWeapon:
-				weapon_instant.attack_duration = weapon_stats["attack_duration"]
-		
 		building_instant.add_child(weapon_instant)
 		building_instant.is_weapon = true
 		building_instant.weapon = weapon_instant

@@ -4,7 +4,8 @@ extends Node2D
 @onready var hex_menu : PanelContainer  = $"../CanvasLayer/UI/HexMenu" # The UI menu for selecting hexes
 @onready var camera : Camera2D = $Camera2D # The game's main camera
 @onready var canvas_layer: CanvasLayer = $"../CanvasLayer" # Layer for UI and overlays
-@onready var currency_label = $"../CanvasLayer/UI/CurrenyLabel" # UI label displaying current currency
+@onready var currency_label = $"../CanvasLayer/UI/VBoxContainer/CurrenyLabel"# UI label displaying current currency
+@onready var resource_label = $"../CanvasLayer/UI/VBoxContainer/ResourceLabel"
 @onready var wave_spawner = $WaveSpawner
 @onready var start_button = $"../CanvasLayer/UI/StartButton"
 @onready var win_label = $"../CanvasLayer/WinLabel"
@@ -21,6 +22,7 @@ const BUILDING_POPUP_PREFAB = preload("res://Scenes/UI/Overlay/building_popup.ts
 
 # Variables for game state
 var currency : int = 0 # Player's available currency
+var resource : float = 0
 var level : int = 0
 var power_systems = [] # Tracks connected power systems
 var hex_icon : Node # Temporary icon for hex placement
@@ -29,6 +31,7 @@ var building_popup: Node
 
 func _ready():
 	add_currency(10000)
+	add_resource(100)
 	set_wave_label()
 	setup()
 
@@ -154,6 +157,8 @@ func setup_building(hex_id: int, building_instant: Building):
 			building_instant.tag = "generator"
 		Data.hex_ids.MINER:
 			building_instant.tag = "miner"
+			building_instant.charge_rate = -1
+			building_instant.mine_rate = 2
 		Data.hex_ids.ENHANCER:
 			building_instant.tag = "enhancer"
 		Data.hex_ids.MANUAL:
@@ -200,6 +205,10 @@ func setup_building(hex_id: int, building_instant: Building):
 func add_currency(value: int):
 	currency += value
 	currency_label.set_text(str(currency))
+
+func add_resource(value: float):
+	resource += value
+	resource_label.set_text(str(int(resource)))
 
 # Adds charge to a power system connected to the given building
 func add_system_charge(building: Building, amount: float):
@@ -279,3 +288,13 @@ func _on_wave_spawner_wave_done():
 
 func set_wave_label():
 	wave_label.text = "Wave " + str(level+1)
+
+func consume_resource(building: Building, amount: float):
+	var tile_pos = building.tile_pos
+	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, tile_pos)
+	if tile_data:
+		var resource_amount = tile_data.get_custom_data("Resource")
+		if resource_amount >= 0:
+			tile_data.set_custom_data("Resource", maxf(resource_amount - amount, resource_amount))
+			return true
+	return false

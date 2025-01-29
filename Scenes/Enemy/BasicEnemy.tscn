@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5fhf62sssdyh"]
 
 [ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="1_d15rj"]
-[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader_1.png" id="2_2ausv"]
+[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader_1.png" id="2_67w0f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eb0jp"]
 radius = 9.0
@@ -20,7 +20,7 @@ SPEED = 60.0
 max_shield = 0.0
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_2ausv")
+texture = ExtResource("2_67w0f")
 
 [node name="CollisionShape2D" parent="." index="1"]
 rotation = 1.5708

@@ -7,6 +7,7 @@ class_name Building
 @export var charge : float = 0
 @export var max_charge : float = 0
 @export var charge_rate : float = 0
+@export var mine_rate: float = 0
 @export var tile_pos : Vector2 = Vector2.ZERO
 
 signal destroyed(tile_pos: Vector2)
@@ -17,8 +18,15 @@ func _ready():
 	add_charge(0)
 
 func _process(delta):
+	var gm = get_tree().get_first_node_in_group("game_manager")
+	var paid = false
 	if (charge_rate > 0):
-		get_tree().get_first_node_in_group("game_manager").add_system_charge(self, charge_rate*delta)
+		gm.add_system_charge(self, charge_rate*delta)
+	elif (charge_rate < 0):
+		paid = gm.consume_system_charge(self, -charge_rate*delta)
+	if (mine_rate > 0 and paid):
+		if gm.consume_resource(self, mine_rate*delta):
+			gm.add_resource(mine_rate*delta)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):
 	damage(damage)

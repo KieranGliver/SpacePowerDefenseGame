@@ -23,7 +23,6 @@ SPEED = 40.0
 max_hp = 10.0
 max_shield = 10.0
 shield_recharge_rate = 1.0
-value = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 

@@ -9,6 +9,7 @@ extends Node2D
 @onready var start_button = $"../CanvasLayer/UI/StartButton"
 @onready var win_label = $"../CanvasLayer/WinLabel"
 @onready var wave_label = $"../CanvasLayer/UI/WaveLabel"
+@onready var lose_label = $"../CanvasLayer/LoseLabel"
 
 # Preloaded prefabs for various objects
 const HEX_ICON_PREFAB = preload("res://Scenes/UI/hex_icon.tscn")
@@ -29,6 +30,10 @@ var building_popup: Node
 func _ready():
 	add_currency(10000)
 	set_wave_label()
+	setup()
+
+func setup():
+	spawn_building(Vector2.ZERO, Data.hex_ids.HEART)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -40,7 +45,15 @@ func _input(event):
 # Triggered when a building is destroyed, updates the grid and power systems
 func _on_building_destroyed(tile_pos: Vector2):
 	tile_map.set_cell(Data.TILE_MAP_LAYER, tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2(0, 0))
+	print(tile_pos)
+	if tile_pos == Vector2.ZERO:
+		print("lose")
+		defeat()
 	power_systems = tile_map.find_connections()
+
+func defeat():
+	lose_label.visible = true
+	get_tree().paused = true
 
 # Handles pressing a button in the hex menu
 func _on_hex_menu_button_pressed(button_id: int):
@@ -71,7 +84,6 @@ func create_popup(tile_pos):
 	building_popup.set_name_text(building_popup.building.tag)
 
 func _on_sell_button_pressed(building: Building):
-	tile_map.set_cell(Data.TILE_MAP_LAYER, building.tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2.ZERO)
 	building.queue_free()
 	building_popup.queue_free()
 	power_systems = tile_map.find_connections()
@@ -128,6 +140,8 @@ func spawn_building(tile_map_pos: Vector2, hex_id: int):
 # Configures a building's properties based on its hex ID
 func setup_building(hex_id: int, building_instant: Building):
 	match hex_id:
+		Data.hex_ids.HEART:
+			building_instant.tag = "heart"
 		Data.hex_ids.BLANK:
 			building_instant.tag = "blank"
 		Data.hex_ids.WIRE:
@@ -138,6 +152,10 @@ func setup_building(hex_id: int, building_instant: Building):
 		Data.hex_ids.GENERATOR:
 			building_instant.charge_rate = 10.0
 			building_instant.tag = "generator"
+		Data.hex_ids.MINER:
+			building_instant.tag = "miner"
+		Data.hex_ids.ENHANCER:
+			building_instant.tag = "enhancer"
 		Data.hex_ids.MANUAL:
 			var manual_instant = MANUAL_PREFAB.instantiate()
 			manual_instant.building_owner = building_instant

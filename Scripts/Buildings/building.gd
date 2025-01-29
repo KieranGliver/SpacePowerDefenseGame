@@ -29,10 +29,10 @@ func damage(damage):
 		destroy_building()
 
 func destroy_building():
-	emit_signal("destroyed", tile_pos)
 	queue_free()
 
 func _exit_tree():
+	emit_signal("destroyed", tile_pos)
 	for e in get_tree().get_nodes_in_group("enemy"):
 		e.call_deferred("find_target")
 

@@ -84,7 +84,6 @@ theme_override_font_sizes/font_size = 64
 text = "YOU WIN!"
 
 [node name="LoseLabel" type="Label" parent="CanvasLayer"]
-process_mode = 3
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -101,7 +100,7 @@ theme_override_font_sizes/font_size = 64
 text = "YOU LOSE!"
 
 [node name="RetryButton" type="Button" parent="CanvasLayer/LoseLabel"]
-process_mode = 3
+process_mode = 2
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

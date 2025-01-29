@@ -1,5 +1,16 @@
 extends TileMap
 
+const outer_rim = [Vector2(0,-3), Vector2(1,-3), Vector2(2,-2), Vector2(3,-2), Vector2(3,-1), Vector2(3,0), Vector2(3,1), Vector2(2,2), Vector2(1,2), Vector2(0,3), Vector2(-1,2), Vector2(-2,2), Vector2(-3,0), Vector2(-3,-1), Vector2(-3,0), Vector2(-3,1), Vector2(-3,2), Vector2(-2,-2), Vector2(-1,-3)]
+
+func _ready():
+	add_ore()
+
+func add_ore():
+	var possible_tiles = outer_rim
+	for i in 5:
+		var picked_tile = possible_tiles.pick_random()
+		set_cell(Data.TILE_MAP_LAYER, picked_tile, Data.TILE_MAP_ATLAS_ID, Vector2(Data.hex_ids.ORE, 0))
+
 func is_building(tile_pos:Vector2):
 	return get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos) and get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos).get_custom_data("Occupied")
 	

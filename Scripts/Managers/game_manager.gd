@@ -111,64 +111,59 @@ func spawn_building(tile_map_pos: Vector2, hex_id: int):
 
 # Configures a building's properties based on its hex ID
 func setup_building(hex_id: int, building_instant: Building):
+	
+	building_instant.tag = Data.hex_name[hex_id]
+	
 	match hex_id:
 		Data.hex_ids.HEART:
-			building_instant.tag = "heart"
-		Data.hex_ids.BLANK:
-			building_instant.tag = "blank"
+			pass
 		Data.hex_ids.WIRE:
-			building_instant.tag = "wire"
+			pass
 		Data.hex_ids.BATTERY:
 			building_instant.max_charge = 50.0
-			building_instant.tag = "battery"
 		Data.hex_ids.GENERATOR:
 			building_instant.charge_rate = 10.0
-			building_instant.tag = "generator"
 		Data.hex_ids.MINER:
-			building_instant.tag = "miner"
 			building_instant.charge_rate = -1
 			building_instant.mine_rate = 2
 		Data.hex_ids.ENHANCER:
-			building_instant.tag = "enhancer"
+			pass
+		Data.hex_ids.MANUAL, Data.hex_ids.MINIGUN, Data.hex_ids.SNIPER, Data.hex_ids.LASER:
+			setup_weapon(hex_id, building_instant)
+	
+
+func setup_weapon(hex_id: int, building_instant: Building):
+	var weapon_name = Data.hex_name[hex_id]
+	var weapon_instant : Weapon
+	
+	match hex_id:
 		Data.hex_ids.MANUAL:
-			var manual_instant = MANUAL_PREFAB.instantiate()
-			manual_instant.building_owner = building_instant
-			manual_instant.damage_val = Data.weapon_stats["manual"]["damage"]
-			manual_instant.charge_cost = Data.weapon_stats["manual"]["charge"]
-			building_instant.add_child(manual_instant)
-			building_instant.tag = "manual"
-		Data.hex_ids.MINIGUN:
-			var minigun_instant = AUTO_HITSCAN_PREFAB.instantiate()
-			minigun_instant.get_child(0).building_owner = building_instant
-			minigun_instant.get_child(0).damage_val = Data.weapon_stats["minigun"]["damage"]
-			minigun_instant.get_child(0).charge_cost = Data.weapon_stats["minigun"]["charge"]
-			minigun_instant.get_child(0).range = Data.weapon_stats["minigun"]["range"]
-			minigun_instant.get_child(0).cooldown = Data.weapon_stats["minigun"]["cooldown"]
-			minigun_instant.get_child(0).attack_speed = Data.weapon_stats["minigun"]["attack_speed"]
-			minigun_instant.get_child(0).ammo_amount = Data.weapon_stats["minigun"]["ammo"]
-			building_instant.add_child(minigun_instant)
-			building_instant.tag = "minigun"
-		Data.hex_ids.SNIPER:
-			var sniper_instant = AUTO_HITSCAN_PREFAB.instantiate()
-			sniper_instant.get_child(0).building_owner = building_instant
-			sniper_instant.get_child(0).damage_val = Data.weapon_stats["sniper"]["damage"]
-			sniper_instant.get_child(0).charge_cost = Data.weapon_stats["sniper"]["charge"]
-			sniper_instant.get_child(0).range = Data.weapon_stats["sniper"]["range"]
-			sniper_instant.get_child(0).cooldown = Data.weapon_stats["sniper"]["cooldown"]
-			sniper_instant.get_child(0).attack_speed = Data.weapon_stats["sniper"]["attack_speed"]
-			sniper_instant.get_child(0).ammo_amount = Data.weapon_stats["sniper"]["ammo"]
-			building_instant.add_child(sniper_instant)
-			building_instant.tag = "sniper"
+			weapon_instant = MANUAL_PREFAB.instantiate()
+		Data.hex_ids.MINIGUN, Data.hex_ids.SNIPER:
+			weapon_instant = AUTO_HITSCAN_PREFAB.instantiate()
 		Data.hex_ids.LASER:
-			var laser_instant = AUTO_CONTINOUS_PREFAB.instantiate()
-			laser_instant.get_child(0).building_owner = building_instant
-			laser_instant.get_child(0).damage_val = Data.weapon_stats["laser"]["damage"]
-			laser_instant.get_child(0).charge_cost = Data.weapon_stats["laser"]["charge"]
-			laser_instant.get_child(0).range = Data.weapon_stats["laser"]["range"]
-			laser_instant.get_child(0).cooldown = Data.weapon_stats["laser"]["cooldown"]
-			laser_instant.get_child(0).attack_duration = Data.weapon_stats["laser"]["attack_duration"]
-			building_instant.add_child(laser_instant)
-			building_instant.tag = "laser"
+			weapon_instant = AUTO_CONTINOUS_PREFAB.instantiate()
+	
+	if weapon_instant:
+		var weapon_stats = Data.weapon_stats[weapon_name]
+		
+		weapon_instant.building_owner = building_instant
+		weapon_instant.damage_val = weapon_stats["damage"]
+		weapon_instant.charge_cost = weapon_stats["charge"]
+		
+		if weapon_instant is AutoWeapon:
+			weapon_instant.cooldown = weapon_stats["cooldown"]
+			weapon_instant.range = weapon_stats["range"]
+			
+			if weapon_instant is HitscanAutoWeapon:
+				weapon_instant.attack_speed = weapon_stats["attack_speed"]
+				weapon_instant.ammo_amount = weapon_stats["ammo"]
+			elif weapon_instant is ContinousAutoWeapon:
+				weapon_instant.attack_duration = weapon_stats["attack_duration"]
+		
+		building_instant.add_child(weapon_instant)
+		building_instant.is_weapon = true
+		building_instant.weapon = weapon_instant
 
 # Adds currency to the player and updates the UI
 func add_currency(value: int):

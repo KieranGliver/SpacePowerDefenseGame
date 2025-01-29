@@ -10,6 +10,9 @@ class_name Building
 @export var mine_rate: float = 0
 @export var tile_pos : Vector2 = Vector2.ZERO
 
+var weapon: Node = null
+var is_weapon: bool = false
+
 signal destroyed(tile_pos: Vector2)
 
 @onready var enery_bar = $EnergyBar

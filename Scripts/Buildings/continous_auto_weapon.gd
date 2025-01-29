@@ -1,5 +1,7 @@
 extends AutoWeapon
 
+class_name ContinousAutoWeapon
+
 @onready var beam = $Beam
 
 @export var attack_duration: float = 0

@@ -1,5 +1,7 @@
 extends AutoWeapon
 
+class_name HitscanAutoWeapon
+
 const TRACER_PREFAB = preload("res://Scenes/Buildings/Weapons/Effects/tracer.tscn")
 
 @export var ammo_amount: int = 0

@@ -1,14 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4qar084b8sbt"]
+[gd_scene load_steps=12 format=3 uid="uid://c4qar084b8sbt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HexMenu.gd" id="1_6858y"]
 [ext_resource type="PackedScene" uid="uid://divqxy2pvpyc7" path="res://Scenes/UI/Overlay/hex_button.tscn" id="2_l507q"]
-[ext_resource type="Texture2D" uid="uid://cok3fhn0b20j" path="res://Sprites/prototype/hex_sprites/wire_hex.png" id="3_q82m2"]
-[ext_resource type="Texture2D" uid="uid://twpi0ngjmg4p" path="res://Sprites/prototype/hex_sprites/battery_hex.png" id="5_jcfy3"]
-[ext_resource type="Texture2D" uid="uid://d33oon718wrr7" path="res://Sprites/prototype/hex_sprites/generator_hex.png" id="6_fbeae"]
-[ext_resource type="Texture2D" uid="uid://va34sv35dbjp" path="res://Sprites/prototype/hex_sprites/minigun_hex.png" id="7_2hp41"]
-[ext_resource type="Texture2D" uid="uid://cshgbjhel73qu" path="res://Sprites/prototype/hex_sprites/sniper_hex.png" id="8_q8xhn"]
-[ext_resource type="Texture2D" uid="uid://db33sg86knnqt" path="res://Sprites/prototype/hex_sprites/manual_hex.png" id="9_6yqf4"]
-[ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/prototype/hex_sprites/laser_hex.png" id="9_h4jpo"]
+[ext_resource type="Texture2D" uid="uid://cok3fhn0b20j" path="res://Sprites/prototype/hex_sprites/Hex_Icon/wire_hex.png" id="3_q82m2"]
+[ext_resource type="Texture2D" uid="uid://twpi0ngjmg4p" path="res://Sprites/prototype/hex_sprites/Hex_Icon/battery_hex.png" id="5_jcfy3"]
+[ext_resource type="Texture2D" uid="uid://d33oon718wrr7" path="res://Sprites/prototype/hex_sprites/Hex_Icon/generator_hex.png" id="6_fbeae"]
+[ext_resource type="Texture2D" uid="uid://c423gb6rv78qr" path="res://Sprites/prototype/hex_sprites/Hex_Icon/miner_hex.png" id="6_kp077"]
+[ext_resource type="Texture2D" uid="uid://clt27j4rxyo7g" path="res://Sprites/prototype/hex_sprites/Hex_Icon/enhance_hex.png" id="7_4pkkb"]
+[ext_resource type="Texture2D" uid="uid://cshgbjhel73qu" path="res://Sprites/prototype/hex_sprites/Hex_Icon/sniper_hex.png" id="8_q8xhn"]
+[ext_resource type="Texture2D" uid="uid://b8u6jc21l6mat" path="res://Sprites/prototype/hex_sprites/Hex_Icon/minigun_hex.png" id="8_x2tqm"]
+[ext_resource type="Texture2D" uid="uid://db33sg86knnqt" path="res://Sprites/prototype/hex_sprites/Hex_Icon/manual_hex.png" id="9_6yqf4"]
+[ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/prototype/hex_sprites/Hex_Icon/laser_hex.png" id="9_h4jpo"]
 
 [node name="HexMenu" type="PanelContainer"]
 anchors_preset = 7
@@ -46,9 +48,17 @@ icon = ExtResource("5_jcfy3")
 layout_mode = 2
 icon = ExtResource("6_fbeae")
 
+[node name="MinerButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
+layout_mode = 2
+icon = ExtResource("6_kp077")
+
+[node name="EnhancerButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
+layout_mode = 2
+icon = ExtResource("7_4pkkb")
+
 [node name="MinigunButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
 layout_mode = 2
-icon = ExtResource("7_2hp41")
+icon = ExtResource("8_x2tqm")
 
 [node name="SniperButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
 layout_mode = 2
@@ -65,6 +75,8 @@ icon = ExtResource("9_6yqf4")
 [connection signal="button_down" from="MarginContainer/HBoxContainer/WireButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/BatteryButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/GeneratorButton" to="." method="_on_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/MinerButton" to="." method="_on_button_down"]
+[connection signal="button_down" from="MarginContainer/HBoxContainer/EnhancerButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/MinigunButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/SniperButton" to="." method="_on_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/LaserButton" to="." method="_on_button_down"]
@@ -73,6 +85,8 @@ icon = ExtResource("9_6yqf4")
 [editable path="MarginContainer/HBoxContainer/WireButton"]
 [editable path="MarginContainer/HBoxContainer/BatteryButton"]
 [editable path="MarginContainer/HBoxContainer/GeneratorButton"]
+[editable path="MarginContainer/HBoxContainer/MinerButton"]
+[editable path="MarginContainer/HBoxContainer/EnhancerButton"]
 [editable path="MarginContainer/HBoxContainer/MinigunButton"]
 [editable path="MarginContainer/HBoxContainer/SniperButton"]
 [editable path="MarginContainer/HBoxContainer/LaserButton"]

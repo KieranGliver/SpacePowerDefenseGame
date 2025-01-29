@@ -1,16 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://cved15jmsk7ep"]
 
-[ext_resource type="Texture2D" uid="uid://cnowrrt8e4r2l" path="res://Sprites/prototype/hex_sprites/hex_tile_map.png" id="1_o03fh"]
+[ext_resource type="Texture2D" uid="uid://bjyxgu610cp7a" path="res://Sprites/prototype/hex_sprites/Spritesheet/hex_tile_map.png" id="1_3j5y0"]
 [ext_resource type="Script" path="res://Scripts/UI/hex_tile_map.gd" id="2_7ekgt"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mphw3"]
-texture = ExtResource("1_o03fh")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yokl5"]
+texture = ExtResource("1_3j5y0")
 margins = Vector2i(9, 8)
 separation = Vector2i(18, 0)
-texture_region_size = Vector2i(110, 97)
+texture_region_size = Vector2i(110, 96)
 0:0/0 = 0
 1:0/0 = 0
-1:0/0/custom_data_0 = true
 2:0/0 = 0
 2:0/0/custom_data_0 = true
 3:0/0 = 0
@@ -23,6 +22,14 @@ texture_region_size = Vector2i(110, 97)
 6:0/0/custom_data_0 = true
 7:0/0 = 0
 7:0/0/custom_data_0 = true
+8:0/0 = 0
+8:0/0/custom_data_0 = true
+9:0/0 = 0
+9:0/0/custom_data_0 = true
+10:0/0 = 0
+10:0/0/custom_data_0 = true
+11:0/0 = 0
+11:0/0/custom_data_0 = true
 
 [sub_resource type="TileSet" id="TileSet_ctrd7"]
 tile_shape = 3
@@ -30,7 +37,7 @@ tile_offset_axis = 1
 tile_size = Vector2i(102, 94)
 custom_data_layer_0/name = "Occupied"
 custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_mphw3")
+sources/0 = SubResource("TileSetAtlasSource_yokl5")
 
 [node name="TileMap" type="TileMap"]
 position = Vector2(-52, -47)

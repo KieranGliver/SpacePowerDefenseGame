@@ -1,5 +1,7 @@
 extends PanelContainer
 
+const HEX_SPRITE_SHEET_OFFSET = 3
+
 @onready var button_arr : Array[Node] = $MarginContainer/HBoxContainer.get_children()
 
 signal button_pressed(button: int)
@@ -12,5 +14,5 @@ func get_pressed():
 	for i in button_arr.size():
 		if button_arr[i].button_pressed:
 			# Since tilemap has a blank hex we add one to the index 
-			return i + 1
+			return i + HEX_SPRITE_SHEET_OFFSET
 	return -1

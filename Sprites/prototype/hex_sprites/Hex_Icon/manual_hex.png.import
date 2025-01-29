@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cshgbjhel73qu"
-path="res://.godot/imported/sniper_hex.png-8dccc219aa87d1d9570c6b74ec6dbce1.ctex"
+uid="uid://db33sg86knnqt"
+path="res://.godot/imported/manual_hex.png-d83d55056c49c07892955f2722859973.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/prototype/hex_sprites/sniper_hex.png"
-dest_files=["res://.godot/imported/sniper_hex.png-8dccc219aa87d1d9570c6b74ec6dbce1.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/Hex_Icon/manual_hex.png"
+dest_files=["res://.godot/imported/manual_hex.png-d83d55056c49c07892955f2722859973.ctex"]
 
 [params]
 

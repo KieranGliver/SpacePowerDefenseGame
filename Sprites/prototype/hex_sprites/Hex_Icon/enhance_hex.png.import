@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cok3fhn0b20j"
-path="res://.godot/imported/wire_hex.png-e2b6bfa31a6a7e2f52eba0bd5a269da5.ctex"
+uid="uid://clt27j4rxyo7g"
+path="res://.godot/imported/enhance_hex.png-cff5009d15d5ad3944fc59034ef10537.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/prototype/hex_sprites/wire_hex.png"
-dest_files=["res://.godot/imported/wire_hex.png-e2b6bfa31a6a7e2f52eba0bd5a269da5.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/Hex_Icon/enhance_hex.png"
+dest_files=["res://.godot/imported/enhance_hex.png-cff5009d15d5ad3944fc59034ef10537.ctex"]
 
 [params]
 

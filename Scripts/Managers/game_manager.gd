@@ -86,12 +86,12 @@ func place_hex():
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
 	
 	if can_place_hex(tile_data):
-		add_currency(-Data.cost[hex_icon.hex_id])
+		add_currency(-Data.cost[Data.hex_name[hex_icon.hex_id]])
 		spawn_building(pos_clicked, hex_icon.hex_id)
 
 # Checks if a hex can be placed on the given tile and currency is available
 func can_place_hex(tile_data: TileData):
-	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[hex_icon.hex_id] <= currency
+	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[hex_icon.hex_id]] <= currency
 
 # Initializes placement state and creates a temporary hex icon
 func start_placement(hex_id: int):

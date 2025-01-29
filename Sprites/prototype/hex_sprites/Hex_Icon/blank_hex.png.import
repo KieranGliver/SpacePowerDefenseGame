@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnowrrt8e4r2l"
-path="res://.godot/imported/hex_tile_map.png-80c5d1fa5aa17bd13d124fd973fe5fd6.ctex"
+uid="uid://gmkebxm45hft"
+path="res://.godot/imported/blank_hex.png-0368b5a0882a5413e7c0bb0112d45855.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/prototype/hex_sprites/hex_tile_map.png"
-dest_files=["res://.godot/imported/hex_tile_map.png-80c5d1fa5aa17bd13d124fd973fe5fd6.ctex"]
+source_file="res://Sprites/prototype/hex_sprites/Hex_Icon/blank_hex.png"
+dest_files=["res://.godot/imported/blank_hex.png-0368b5a0882a5413e7c0bb0112d45855.ctex"]
 
 [params]
 

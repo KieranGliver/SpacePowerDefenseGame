@@ -1,8 +1,20 @@
 extends Node
 
-enum hex_ids {BLANK, WIRE, BATTERY, GENERATOR, MINIGUN, SNIPER, LASER, MANUAL}
+enum hex_ids {BLANK, ORE, HEART, WIRE, BATTERY, GENERATOR, MINER, ENHANCER, MINIGUN, SNIPER, LASER, MANUAL}
 
-var cost = [0, 5, 50, 100, 50, 100, 150, 50]
+var hex_name = ["blank", "ore", "heart", "wire", "battery", "generator", "miner", "enhancer", "minigun", "sniper", "laser", "manual"]
+
+var cost = {
+	"wire": 5,
+	"battery": 50,
+	"generator": 50,
+	"miner": 50,
+	"enhancer": 50,
+	"minigun": 50,
+	"sniper": 50,
+	"laser": 50,
+	"manual": 50
+}
 
 const TILE_MAP_LAYER = 0
 const TILE_MAP_ATLAS_ID = 0

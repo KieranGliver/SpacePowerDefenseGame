@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var spawns: Array[Wave_Info] = []
-
+@onready var camera: Camera2D = $"../Camera2D"
 @onready var timer = $Timer
 
 var time = 0
@@ -55,7 +55,7 @@ func _on_timer_timeout():
 
 func get_random_position():
 
-	var vpr = get_viewport_rect().size * randf_range(1.1,1.4)
+	var vpr = Vector2((camera.limit_right - camera.limit_left), (camera.limit_bottom - camera.limit_top)) * randf_range(1.1,1.4)
 	
 	var top_left = Vector2(global_position.x - vpr.x, global_position.y - vpr.y)
 	var top_right = Vector2(global_position.x + vpr.x, global_position.y - vpr.y)

@@ -20,17 +20,14 @@ func _process(delta):
 	var process_charge_cost = charge_cost * delta
 	var process_damage = damage_val * delta
 	if active:
-		if enemy_exists():
-			var enemy = Methods.find_closest("enemy", global_position)[0]
-			if in_range(enemy) and paid_cost(process_charge_cost):
-				if internal_timer.is_stopped():
-					internal_timer.start()
-				beam.visible = true
-				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
-				beam.points = [get_barrel_end_position(), to_local(enemy.global_position)]
-				enemy.damage(process_damage)
-			else:
-				beam.visible = false
+		set_target()
+		if target != null and paid_cost(process_charge_cost):
+			if internal_timer.is_stopped():
+				internal_timer.start()
+			beam.visible = true
+			rotation = (target.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
+			beam.points = [get_barrel_end_position(), to_local(target.global_position)]
+			target.damage(process_damage)
 		else:
 			beam.visible = false
 

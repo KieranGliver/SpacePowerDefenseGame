@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Building
 
+
+
 @export var tag : String = "Invalid"
 @export var level: int = 0
 @export var hp : int = 10
@@ -10,10 +12,13 @@ class_name Building
 @export var mine_rate: float = 0
 @export var tile_pos : Vector2 = Vector2.ZERO
 
+@onready var gm = get_tree().get_first_node_in_group("game_manager")
 var charge : float = 0
 
 var weapon: Node = null
 var is_weapon: bool = false
+var enhancer_count : int = 0
+var is_enhanced : bool = false
 
 signal destroyed(tile_pos: Vector2)
 
@@ -21,9 +26,11 @@ signal destroyed(tile_pos: Vector2)
 
 func _ready():
 	add_charge(0)
+	
+	if tag == Data.hex_name[Data.hex_ids.ENHANCER]:
+		apply_enhancement()
 
 func _process(delta):
-	var gm = get_tree().get_first_node_in_group("game_manager")
 	var paid = false
 	if (charge_rate > 0):
 		gm.add_system_charge(self, charge_rate*delta)
@@ -46,6 +53,8 @@ func destroy_building():
 
 func _exit_tree():
 	emit_signal("destroyed", tile_pos)
+	if tag == Data.hex_name[Data.hex_ids.ENHANCER]:
+		remove_enhancement()
 	for e in get_tree().get_nodes_in_group("enemy"):
 		e.call_deferred("find_target")
 
@@ -57,6 +66,9 @@ func add_charge(c: float):
 		enery_bar.visible = false
 
 func setup(level: int = 0):
+	enhancer_count = 0
+	is_enhanced = false
+	
 	var building_name = tag
 	self.level = level
 	var building_stats = Data.building_stats[building_name][level]
@@ -70,3 +82,53 @@ func setup(level: int = 0):
 	match building_name:
 		Data.hex_name[Data.hex_ids.MANUAL], Data.hex_name[Data.hex_ids.MINIGUN], Data.hex_name[Data.hex_ids.SNIPER], Data.hex_name[Data.hex_ids.LASER]:
 			weapon.setup(building_name, level)
+	
+	var adjacent_tiles = Methods.get_adjacent_hexes(tile_pos)
+	for tile in adjacent_tiles:
+		var adjacent_building = Methods.find_building(tile)
+		if adjacent_building and adjacent_building.tag == Data.hex_name[Data.hex_ids.ENHANCER]:
+			add_enhancer()
+
+func apply_enhancement():
+	var adjacent_tiles = Methods.get_adjacent_hexes(tile_pos)
+	for tile in adjacent_tiles:
+		var adjacent_building = Methods.find_building(tile)
+		if adjacent_building:
+			adjacent_building.add_enhancer()
+
+func remove_enhancement():
+	var adjacent_tiles = Methods.get_adjacent_hexes(tile_pos)
+	for tile in adjacent_tiles:
+		var adjacent_building = Methods.find_building(tile)
+		if adjacent_building:
+			adjacent_building.remove_enhancer()
+
+func add_enhancer():
+	enhancer_count += 1
+	if not is_enhanced and enhancer_count >= 1:
+		enhance_building()
+
+func remove_enhancer():
+	enhancer_count -= 1
+	if is_enhanced and enhancer_count <= 0:
+		revert_enhance_building()
+
+func enhance_building():
+	is_enhanced = true
+	hp *= Data.ENHANCEMENT_MULTI
+	max_charge *= Data.ENHANCEMENT_MULTI
+	charge_rate *= Data.ENHANCEMENT_MULTI
+	mine_rate *= Data.ENHANCEMENT_MULTI
+	
+	if weapon:
+		weapon.enhance_weapon()
+
+func revert_enhance_building():
+	is_enhanced = false
+	hp /= Data.ENHANCEMENT_MULTI
+	max_charge /= Data.ENHANCEMENT_MULTI
+	charge_rate /= Data.ENHANCEMENT_MULTI
+	mine_rate /= Data.ENHANCEMENT_MULTI
+	
+	if weapon:
+		weapon.revert_enhance_weapon()

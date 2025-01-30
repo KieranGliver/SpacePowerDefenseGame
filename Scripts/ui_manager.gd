@@ -56,10 +56,16 @@ func create_popup(tile_pos):
 func _on_sell_button_pressed(building: Building):
 	building.queue_free()
 	building_popup.queue_free()
+	Data.currency += int(Data.cost[building.tag][building.level]*0.7)
+	_on_gm_currency_changed()
 	gm.power_systems = gm.tile_map.find_connections()
 
 func _on_upgrade_button_pressed(building: Building):
-	pass
+	if building.level < Data.MAX_LEVEL:
+		if Data.cost[building.tag][building.level+1] <= Data.currency:
+			building.setup(building.level+1)
+			Data.currency -= Data.cost[building.tag][building.level]
+			_on_gm_currency_changed()
 
 func create_hex_icon(hex_id: int):
 	hex_icon = HEX_ICON_PREFAB.instantiate()

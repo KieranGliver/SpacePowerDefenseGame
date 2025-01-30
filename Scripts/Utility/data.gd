@@ -8,7 +8,11 @@ enum hex_ids {BLANK, ORE, HEART, WIRE, BATTERY, GENERATOR, MINER, ENHANCER, MINI
 
 const hex_name = ["blank", "ore", "heart", "wire", "battery", "generator", "miner", "enhancer", "minigun", "sniper", "laser", "manual"]
 
+const MAX_LEVEL = 2
+const ENHANCEMENT_MULTI = 2.0
+
 const cost = {
+	"heart": [0, 0, 0],
 	"wire": [5, 5, 5],
 	"battery": [50, 50, 50],
 	"generator": [50, 50, 50],
@@ -331,7 +335,7 @@ const wave_data = [
 			"time_start": 0,
 			"time_end": 60,
 			"enemy": BASIC_ENEMY,
-			"enemy_num": 3,
+			"enemy_num": 10,
 			"enemy_spawn_delay": 5
 		}
 	],

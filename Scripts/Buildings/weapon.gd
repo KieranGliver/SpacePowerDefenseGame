@@ -26,3 +26,32 @@ func setup(tag: String, level: int = 0):
 				self.ammo_amount = weapon_stats["ammo"]
 			elif self is ContinousAutoWeapon:
 				self.attack_duration = weapon_stats["attack_duration"]
+	
+func enhance_weapon():
+	damage_val *= Data.ENHANCEMENT_MULTI
+	charge_cost *= Data.ENHANCEMENT_MULTI
+	
+	if self is AutoWeapon:
+		self.cooldown *= Data.ENHANCEMENT_MULTI
+		self.range *= Data.ENHANCEMENT_MULTI
+		
+		if self is HitscanAutoWeapon:
+			self.attack_speed /= Data.ENHANCEMENT_MULTI
+			self.ammo_amount *= Data.ENHANCEMENT_MULTI
+		elif self is ContinousAutoWeapon:
+			self.attack_duration *= Data.ENHANCEMENT_MULTI
+
+func revert_enhance_weapon():
+	damage_val /= Data.ENHANCEMENT_MULTI
+	charge_cost /= Data.ENHANCEMENT_MULTI
+	
+	if self is AutoWeapon:
+		self.cooldown /= Data.ENHANCEMENT_MULTI
+		self.range /= Data.ENHANCEMENT_MULTI
+		
+		if self is HitscanAutoWeapon:
+			self.attack_speed *= Data.ENHANCEMENT_MULTI
+			self.ammo_amount /= Data.ENHANCEMENT_MULTI
+		elif self is ContinousAutoWeapon:
+			self.attack_duration /= Data.ENHANCEMENT_MULTI
+

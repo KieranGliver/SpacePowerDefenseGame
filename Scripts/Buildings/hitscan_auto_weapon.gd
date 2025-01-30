@@ -23,13 +23,12 @@ func _on_external_timer_timeout():
 
 func _on_internal_timer_timeout():
 	if ammo_remaining > 0:
-		if enemy_exists():
-			var enemy = Methods.find_closest("enemy", global_position)[0]
-			if in_range(enemy) and paid_cost(charge_cost):
-				rotation = (enemy.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
-				create_tracer(to_local(enemy.global_position))
-				enemy.damage(damage_val)
-				ammo_remaining -= 1
+		set_target()
+		if target != null and paid_cost(charge_cost):
+			rotation = (target.global_position-global_position).angle() + SPRITE_ROTATION_OFFSET
+			create_tracer(to_local(target.global_position))
+			target.damage(damage_val)
+			ammo_remaining -= 1
 		internal_timer.start()
 	else:
 		external_timer.start()

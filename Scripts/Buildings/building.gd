@@ -7,12 +7,17 @@ class_name Building
 @export var tag : String = "Invalid"
 @export var level: int = 0
 @export var hp : int = 10
+@export var max_hp : int = 10
+@export var max_shield: int = 0
+@export var shield: int = 0
 @export var max_charge : float = 0
 @export var charge_rate : float = 0
 @export var mine_rate: float = 0
 @export var tile_pos : Vector2 = Vector2.ZERO
 
 @onready var gm = get_tree().get_first_node_in_group("game_manager")
+@onready var health_bar = $BarDisplay/HealthBar
+@onready var shield_bar = $BarDisplay/ShieldBar
 var charge : float = 0
 
 var weapon: Node = null
@@ -26,6 +31,8 @@ signal destroyed(tile_pos: Vector2)
 
 func _ready():
 	add_charge(0)
+	update_health(max_hp)
+	update_shield(max_shield)
 	
 	if tag == Data.hex_name[Data.hex_ids.ENHANCER]:
 		apply_enhancement()
@@ -44,12 +51,7 @@ func _on_hurt_box_hurt(damage, _direction, _knockback):
 	damage(damage)
 
 func damage(damage):
-	hp -= damage
-	if hp <= 0:
-		destroy_building()
-
-func destroy_building():
-	queue_free()
+	update_health(-damage)
 
 func _exit_tree():
 	emit_signal("destroyed", tile_pos)
@@ -76,10 +78,11 @@ func setup(level: int = 0):
 	var building_stats = Data.building_stats[building_name][level]
 	
 	if building_stats:
-		hp = building_stats["health"]
+		max_hp = building_stats["health"]
 		max_charge = building_stats["max_charge"]
 		charge_rate = building_stats["charge_rate"]
 		mine_rate = building_stats["mine_rate"]
+	
 	
 	match building_name:
 		Data.hex_name[Data.hex_ids.MANUAL], Data.hex_name[Data.hex_ids.MINIGUN], Data.hex_name[Data.hex_ids.SNIPER], Data.hex_name[Data.hex_ids.LASER]:
@@ -134,3 +137,17 @@ func revert_enhance_building():
 	
 	if weapon:
 		weapon.revert_enhance_weapon()
+
+func update_health(value: float):
+	hp = maxf(minf(hp + value, max_hp), 0)
+	if hp <= 0:
+		queue_free()
+	health_bar.max_value = max_hp
+	health_bar.value = hp
+
+func update_shield(value: float):
+	if max_shield <= 0:
+		shield_bar.visible = false
+	shield = maxf(minf(shield+value, max_shield), 0)
+	shield_bar.max_value = max_shield
+	shield_bar.value = shield

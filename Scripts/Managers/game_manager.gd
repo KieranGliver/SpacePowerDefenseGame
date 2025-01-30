@@ -76,6 +76,8 @@ func place_hex():
 	if can_place_hex(tile_data):
 		add_currency(-Data.cost[Data.hex_name[hex_id]][0])
 		spawn_building(pos_clicked, hex_id)
+		for e in get_tree().get_nodes_in_group("enemy"):
+			e.call_deferred("find_target")
 
 # Checks if a hex can be placed on the given tile and currency is available
 func can_place_hex(tile_data: TileData):

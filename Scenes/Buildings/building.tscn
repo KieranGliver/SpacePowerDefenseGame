@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcybrtx6cdqpv"]
+[gd_scene load_steps=12 format=3 uid="uid://dcybrtx6cdqpv"]
 
 [ext_resource type="Script" path="res://Scripts/Buildings/building.gd" id="1_pfwks"]
 [ext_resource type="Texture2D" uid="uid://gmkebxm45hft" path="res://Sprites/prototype/hex_sprites/Hex_Icon/blank_hex.png" id="2_6a0k1"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_b6w3n"]
+[ext_resource type="Script" path="res://Scripts/ProgressBarDisplay.gd" id="4_m512l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ny7f"]
 radius = 48.0104
@@ -12,6 +13,18 @@ radius = 48.0104
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l16d0"]
 texture = SubResource("CanvasTexture_1t4n7")
 modulate_color = Color(0, 0.592157, 0.596078, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_5iw80"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f6lqx"]
+texture = SubResource("CanvasTexture_5iw80")
+modulate_color = Color(1, 0.0901961, 0.0588235, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_nht4w"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_imc4y"]
+texture = SubResource("CanvasTexture_nht4w")
+modulate_color = Color(0.894118, 0.678431, 0.0784314, 1)
 
 [node name="Building" type="Node2D" groups=["building"]]
 script = ExtResource("1_pfwks")
@@ -37,6 +50,43 @@ theme_override_styles/fill = SubResource("StyleBoxTexture_l16d0")
 value = 50.0
 show_percentage = false
 
+[node name="BarDisplay" type="Node2D" parent="."]
+position = Vector2(0, -18)
+scale = Vector2(1.5, 1)
+script = ExtResource("4_m512l")
+
+[node name="HealthBar" type="ProgressBar" parent="BarDisplay"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/fill = SubResource("StyleBoxTexture_f6lqx")
+value = 50.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="BarDisplay"]
+offset_left = -24.0
+offset_top = -29.0
+offset_right = 24.0
+offset_bottom = -25.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_imc4y")
+value = 50.0
+show_percentage = false
+
+[node name="DisplayTimer" type="Timer" parent="BarDisplay"]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="hurt" from="HurtBox" to="." method="_on_hurt_box_hurt"]
+[connection signal="value_changed" from="BarDisplay/HealthBar" to="BarDisplay" method="_on_value_changed"]
+[connection signal="value_changed" from="BarDisplay/ShieldBar" to="BarDisplay" method="_on_value_changed"]
+[connection signal="timeout" from="BarDisplay/DisplayTimer" to="BarDisplay" method="_on_display_timer_timeout"]
 
 [editable path="HurtBox"]

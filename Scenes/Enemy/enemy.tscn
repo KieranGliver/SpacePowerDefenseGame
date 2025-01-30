@@ -5,16 +5,16 @@
 [ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
 [ext_resource type="Script" path="res://Scripts/ProgressBarDisplay.gd" id="4_ayiot"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_5iw80"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_nucoh"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h2jfn"]
-texture = SubResource("CanvasTexture_5iw80")
+texture = SubResource("CanvasTexture_nucoh")
 modulate_color = Color(1, 0.0901961, 0.0588235, 1)
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_nht4w"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_hi8xd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yfb0i"]
-texture = SubResource("CanvasTexture_nht4w")
+texture = SubResource("CanvasTexture_hi8xd")
 modulate_color = Color(0.176471, 0.698039, 0.803922, 1)
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]

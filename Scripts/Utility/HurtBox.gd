@@ -24,7 +24,7 @@ func _on_area_entered(area):
 			if area.has_method("enemy_hit"):
 				area.enemy_hit()
 			
-			var damage = get_overlapping_areas().reduce(sum_area_damage, 0)
+			var damage = area.damage
 			var direction = area.global_position.direction_to(global_position)
 			var knockback = 0
 			if not area.get("knockback") == null:
@@ -34,8 +34,3 @@ func _on_area_entered(area):
 
 func _on_disable_timer_timeout():
 	collision.call_deferred("set", "disabled", false)
-
-func sum_area_damage(accum, area):
-	if area.get("damage") != null: 
-		return accum + area.damage 
-	return accum

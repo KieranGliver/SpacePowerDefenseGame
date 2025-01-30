@@ -207,6 +207,7 @@ func find_building_system(building:Building):
 func _on_start_button_pressed():
 	um.update_visiblity(false, um.ui_atlas[um.ui_id.START])
 	wave_spawner.start_wave(Data.wave_number)
+	$"../CanvasLayer/UI/TimeDisplay/Timer".start()
 
 func _on_wave_spawner_wave_done():
 	increment_wave()
@@ -217,7 +218,8 @@ func increment_wave():
 	if Data.wave_number > Data.wave_data.size():
 		um.update_visiblity(true, um.ui_atlas[um.ui_id.WIN])
 	else:
-		um.update_visiblity(true, um.ui_atlas[um.ui_id.START])
+		#um.update_visiblity(true, um.ui_atlas[um.ui_id.START])
+		wave_spawner.start_wave(Data.wave_number)
 
 func consume_resource(building: Building, amount: float):
 	var tile_pos = building.tile_pos

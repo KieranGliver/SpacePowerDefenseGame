@@ -117,7 +117,7 @@ const building_stats = {
 		{ # level 1
 			"health": 10,
 			"max_charge": 0,
-			"charge_rate": -2,
+			"charge_rate": -5,
 			"mine_rate": 1
 		}, 
 		{ # level 2
@@ -335,7 +335,7 @@ const wave_data = [
 			"time_start": 0,
 			"time_end": 60,
 			"enemy": BASIC_ENEMY,
-			"enemy_num": 10,
+			"enemy_num": 1,
 			"enemy_spawn_delay": 5
 		}
 	],

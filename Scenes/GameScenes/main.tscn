@@ -61,7 +61,6 @@ text = "99:99"
 script = ExtResource("6_cs0kq")
 
 [node name="Timer" type="Timer" parent="CanvasLayer/UI/TimeDisplay"]
-autostart = true
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1

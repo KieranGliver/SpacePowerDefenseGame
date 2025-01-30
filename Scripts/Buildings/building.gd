@@ -6,13 +6,14 @@ class_name Building
 
 @export var tag : String = "Invalid"
 @export var level: int = 0
-@export var hp : int = 10
-@export var max_hp : int = 10
-@export var max_shield: int = 0
-@export var shield: int = 0
+@export var hp : float = 10
+@export var max_hp : float = 10
+@export var max_shield: float = 0
+@export var shield: float = 0
 @export var max_charge : float = 0
 @export var charge_rate : float = 0
 @export var mine_rate: float = 0
+@export var regen_rate: float = 0.1
 @export var tile_pos : Vector2 = Vector2.ZERO
 
 @onready var gm = get_tree().get_first_node_in_group("game_manager")
@@ -46,6 +47,9 @@ func _process(delta):
 	if (mine_rate > 0 and paid):
 		if gm.consume_resource(self, mine_rate*delta):
 			gm.add_resource(mine_rate*delta)
+	if (hp < max_hp) and gm.consume_system_charge(self, regen_rate*delta):
+		print("regen")
+		update_health(regen_rate*delta)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):
 	damage(damage)

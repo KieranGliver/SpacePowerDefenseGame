@@ -12,16 +12,16 @@ const MAX_LEVEL = 2
 const ENHANCEMENT_MULTI = 2.0
 
 const cost = {
-	"heart": [0, 0, 0],
-	"wire": [5, 5, 5],
-	"battery": [50, 50, 50],
-	"generator": [50, 50, 50],
-	"miner": [50, 50, 50],
-	"enhancer": [50, 50, 50],
-	"minigun": [50, 50, 50],
-	"sniper": [50, 50, 50],
-	"laser": [50, 50, 50],
-	"manual": [50, 50, 50]
+	"heart": {"currency":[0, 0, 0], "ore":[0,0,0]},
+	"wire": {"currency":[5, 5, 5], "ore":[0,0,0]},
+	"battery": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"generator": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"miner": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"enhancer": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"minigun": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"sniper": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"laser": {"currency":[50, 50, 50], "ore":[0,0,0]},
+	"manual": {"currency":[50, 50, 50], "ore":[0,0,0]}
 }
 
 const TILE_MAP_LAYER = 0
@@ -335,7 +335,7 @@ const wave_data = [
 			"time_start": 0,
 			"time_end": 60,
 			"enemy": BASIC_ENEMY,
-			"enemy_num": 1,
+			"enemy_num": 5,
 			"enemy_spawn_delay": 5
 		}
 	],

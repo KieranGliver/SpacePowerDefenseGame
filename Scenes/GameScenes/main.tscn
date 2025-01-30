@@ -29,7 +29,7 @@ script = ExtResource("1_ct4ye")
 [node name="HexMenu" parent="CanvasLayer/UI" instance=ExtResource("2_yfjim")]
 layout_mode = 1
 
-[node name="ResourceUI" type="VBoxContainer" parent="CanvasLayer/UI"]
+[node name="ResourceUI" type="HBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

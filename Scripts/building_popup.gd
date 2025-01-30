@@ -8,6 +8,7 @@ extends PanelContainer
 @onready var close_button = $MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/CloseButton
 @onready var health_button = $MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/HealthButton
 @onready var shield_button = $MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/ShieldButton
+@onready var upgrade_button = $MarginContainer/VBoxContainer/ButtonContainer/UpgradeButton
 
 var building : Building = null
 
@@ -37,6 +38,11 @@ func setup():
 					health_button.button_pressed = true
 				building.weapon.target_modes.SHIELD:
 					shield_button.button_pressed = true
+	
+	if building.level < Data.MAX_LEVEL:
+		upgrade_button.tooltip_text = "Currency Cost: " + str(Data.cost[building.tag]["currency"][building.level+1]) + "\n" + "Ore Cost: " + str(Data.cost[building.tag]["ore"][building.level+1])
+	else:
+		upgrade_button.tooltip_text = "Max Level"
 
 func get_building_stats():
 	var ret_string = ""
@@ -47,6 +53,8 @@ func get_building_stats():
 		ret_string += "Max Charge: " + str(building.max_charge) + "\n"
 	if building.charge_rate > 0:
 		ret_string += "Charge Rate: " + str(building.charge_rate) + "/s\n"
+	elif building.charge_rate < 0:
+		ret_string += "Charge Cost: " + str(building.charge_rate) + "/s\n"
 	if building.mine_rate > 0:
 		ret_string += "Mine Speed: " + str(building.mine_rate) + "/s\n"
 	

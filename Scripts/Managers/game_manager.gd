@@ -8,10 +8,10 @@ class_name GameManager
 @onready var um: UiManager = $"../CanvasLayer/UI"
 
 # Preloaded prefabs for various objects
-const BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
-const MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
-const AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
-const AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
+@export var BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
+@export var MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
+@export var AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
+@export var AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
 
 
 # Variables for game state
@@ -43,7 +43,14 @@ func _input(event):
 
 # Triggered when a building is destroyed, updates the grid and power systems
 func _on_building_destroyed(tile_pos: Vector2):
-	tile_map.set_cell(Data.TILE_MAP_LAYER, tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2(0, 0))
+	var ore = 0
+	if tile_map.ore_tiles.has(tile_pos):
+		ore = tile_map.ore_tiles[tile_pos]
+	if ore > 0:
+		tile_map.set_cell(Data.TILE_MAP_LAYER, tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2(Data.hex_ids.ORE, 0))
+	else:
+		tile_map.set_cell(Data.TILE_MAP_LAYER, tile_pos, Data.TILE_MAP_ATLAS_ID, Vector2(Data.hex_ids.BLANK, 0))
+	
 	if tile_pos == Vector2.ZERO:
 		defeat()
 	power_systems = tile_map.find_connections()
@@ -74,14 +81,15 @@ func place_hex():
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
 	var hex_id = um.hex_icon.hex_id
 	if can_place_hex(tile_data):
-		add_currency(-Data.cost[Data.hex_name[hex_id]][0])
+		add_currency(-Data.cost[Data.hex_name[hex_id]]["currency"][0])
+		add_resource(-Data.cost[Data.hex_name[hex_id]]["ore"][0])
 		spawn_building(pos_clicked, hex_id)
 		for e in get_tree().get_nodes_in_group("enemy"):
 			e.call_deferred("find_target")
 
 # Checks if a hex can be placed on the given tile and currency is available
 func can_place_hex(tile_data: TileData):
-	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[um.hex_icon.hex_id]][0] <= Data.currency
+	return tile_data and not tile_data.get_custom_data("Occupied") and Data.cost[Data.hex_name[um.hex_icon.hex_id]]["currency"][0] <= Data.currency and Data.cost[Data.hex_name[um.hex_icon.hex_id]]["ore"][0] <= Data.ore
 
 # Initializes placement state and creates a temporary hex icon
 func start_placement(hex_id: int):
@@ -98,7 +106,7 @@ func spawn_building(tile_map_pos: Vector2, hex_id: int):
 	
 	# Set the tile in the tilemap
 	tile_map.set_cell(Data.TILE_MAP_LAYER, tile_map_pos, Data.TILE_MAP_ATLAS_ID, Vector2(hex_id, 0))
-	
+
 	# Instantiate and configure the building
 	var building_instant = BUILDING_PREFAB.instantiate()
 	building_instant.position = tile_map.map_to_local(tile_map_pos)
@@ -221,12 +229,12 @@ func increment_wave():
 		#um.update_visiblity(true, um.ui_atlas[um.ui_id.START])
 		wave_spawner.start_wave(Data.wave_number)
 
-func consume_resource(building: Building, amount: float):
-	var tile_pos = building.tile_pos
-	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, tile_pos)
-	if tile_data:
-		var resource_amount = tile_data.get_custom_data("Ore")
+func consume_resource(tile_pos: Vector2, amount: float):
+	if tile_map.ore_tiles.has(tile_pos):
+		var resource_amount = tile_map.ore_tiles[tile_pos]
 		if resource_amount > 0:
-			tile_data.set_custom_data("Ore", maxf(resource_amount - amount, 0))
+			amount = minf(resource_amount, amount)
+			tile_map.ore_tiles[tile_pos] = maxf(resource_amount - amount, 0)
+			add_resource(amount)
 			return true
 	return false

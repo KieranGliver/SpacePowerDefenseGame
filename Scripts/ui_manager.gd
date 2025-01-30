@@ -47,25 +47,37 @@ func _on_hex_menu_button_pressed(button):
 func create_popup(tile_pos):
 	building_popup = BUILDING_POPUP_PREFAB.instantiate()
 	building_popup.global_position = get_global_mouse_position()
+	add_child(building_popup)
 	building_popup.building = Methods.find_building(tile_pos)
 	building_popup.connect("sell_button_pressed", _on_sell_button_pressed)
 	building_popup.connect("upgrade_button_pressed", _on_upgrade_button_pressed)
-	add_child(building_popup)
 	building_popup.setup()
+	await get_tree().process_frame
+	
+	var screen_size = get_viewport_rect().size
+	var popup_size = building_popup.get_rect().size
+	
+	building_popup.position.x = clamp(building_popup.position.x, 0, screen_size.x - popup_size.x)
+	building_popup.position.y = clamp(building_popup.position.y, 0, screen_size.y - popup_size.y)
+	return
+
 
 func _on_sell_button_pressed(building: Building):
 	building.queue_free()
 	building_popup.queue_free()
-	Data.currency += int(Data.cost[building.tag][building.level]*0.7)
+	Data.currency += int(Data.cost[building.tag]["currency"][building.level]*0.7)
+	Data.currency += int(Data.cost[building.tag]["ore"][building.level]*0.7)
 	_on_gm_currency_changed()
 	gm.power_systems = gm.tile_map.find_connections()
 
 func _on_upgrade_button_pressed(building: Building):
 	if building.level < Data.MAX_LEVEL:
-		if Data.cost[building.tag][building.level+1] <= Data.currency:
+		if Data.cost[building.tag]["currency"][building.level+1] <= Data.currency and Data.cost[building.tag]["ore"][building.level+1] <= Data.ore:
 			building.setup(building.level+1)
-			Data.currency -= Data.cost[building.tag][building.level]
+			Data.currency -= Data.cost[building.tag]["currency"][building.level]
+			Data.ore -= Data.cost[building.tag]["ore"][building.level]
 			_on_gm_currency_changed()
+			_on_gm_ore_changed()
 
 func create_hex_icon(hex_id: int):
 	hex_icon = HEX_ICON_PREFAB.instantiate()

@@ -38,14 +38,13 @@ func set_target():
 			target = enemies[0]
 		target_modes.HEALTH:
 			enemies.sort_custom(func(a, b): return a.hp > b.hp)
+			target = enemies[0]
 		target_modes.SHIELD:
 			var shield_enemies = enemies.filter(func(e): e.max_shield > 0)
 			if not shield_enemies.is_empty():
 				target = shield_enemies[0]
 			else:
 				target = enemies[0]
-	
-	target = Methods.find_closest("enemy", global_position)[0]
 
 func enemy_exists():
 	return !get_tree().get_nodes_in_group("enemy").is_empty()

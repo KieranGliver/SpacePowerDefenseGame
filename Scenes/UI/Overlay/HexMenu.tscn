@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4qar084b8sbt"]
+[gd_scene load_steps=14 format=3 uid="uid://c4qar084b8sbt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/HexMenu.gd" id="1_6858y"]
 [ext_resource type="PackedScene" uid="uid://divqxy2pvpyc7" path="res://Scenes/UI/Overlay/hex_button.tscn" id="2_l507q"]
@@ -11,6 +11,14 @@
 [ext_resource type="Texture2D" uid="uid://b8u6jc21l6mat" path="res://Sprites/prototype/hex_sprites/Hex_Icon/minigun_hex.png" id="8_x2tqm"]
 [ext_resource type="Texture2D" uid="uid://db33sg86knnqt" path="res://Sprites/prototype/hex_sprites/Hex_Icon/manual_hex.png" id="9_6yqf4"]
 [ext_resource type="Texture2D" uid="uid://c1qldnulx1e88" path="res://Sprites/prototype/hex_sprites/Hex_Icon/laser_hex.png" id="9_h4jpo"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_bbxr5"]
+device = -1
+keycode = 49
+unicode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_0phod"]
+events = [SubResource("InputEventKey_bbxr5")]
 
 [node name="HexMenu" type="PanelContainer"]
 anchors_preset = 7
@@ -38,6 +46,7 @@ layout_mode = 2
 [node name="WireButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]
 layout_mode = 2
 action_mode = 0
+shortcut = SubResource("Shortcut_0phod")
 icon = ExtResource("3_q82m2")
 
 [node name="BatteryButton" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_l507q")]

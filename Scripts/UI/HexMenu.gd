@@ -10,7 +10,8 @@ func _ready():
 	for i in button_arr.size():
 		var string = ""
 		string += Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET].to_upper() + "\n"
-		string += "Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]][0])
+		string += "Currency Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]]["currency"][0]) + "\n"
+		string += "Ore Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]]["ore"][0])
 		button_arr[i].tooltip_text = string
 
 func _on_button_down():

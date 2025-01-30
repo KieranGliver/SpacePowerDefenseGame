@@ -25,7 +25,6 @@ var weapon: Node = null
 var is_weapon: bool = false
 var enhancer_count : int = 0
 var is_enhanced : bool = false
-
 signal destroyed(tile_pos: Vector2)
 
 @onready var enery_bar = $EnergyBar
@@ -34,22 +33,19 @@ func _ready():
 	add_charge(0)
 	update_health(max_hp)
 	update_shield(max_shield)
-	health_bar.visible = false
+	$BarDisplay.visible = false
 	
 	if tag == Data.hex_name[Data.hex_ids.ENHANCER]:
 		apply_enhancement()
 
 func _process(delta):
-	var paid = false
 	if (charge_rate > 0):
 		gm.add_system_charge(self, charge_rate*delta)
 	elif (charge_rate < 0):
-		paid = gm.consume_system_charge(self, -charge_rate*delta)
-	if (mine_rate > 0 and paid):
-		if gm.consume_resource(self, mine_rate*delta):
-			gm.add_resource(mine_rate*delta)
+		if gm.consume_system_charge(self, -charge_rate*delta):
+			gm.consume_resource(tile_pos, mine_rate*delta)
+		#gm.add_resource(mine_rate*delta)
 	if (hp < max_hp) and gm.consume_system_charge(self, regen_rate*delta):
-		print("regen")
 		update_health(regen_rate*delta)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):

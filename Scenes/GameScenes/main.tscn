@@ -163,10 +163,10 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Camera2D" type="Camera2D" parent="GM"]
 scale = Vector2(0.5, 0.5)
-limit_left = -640
-limit_top = -360
-limit_right = 640
-limit_bottom = 360
+limit_left = -1280
+limit_top = -720
+limit_right = 1280
+limit_bottom = 720
 script = ExtResource("6_5fofq")
 
 [connection signal="button_pressed" from="CanvasLayer/UI/HexMenu" to="CanvasLayer/UI" method="_on_hex_menu_button_pressed"]

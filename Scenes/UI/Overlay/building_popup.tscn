@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cutcp6wdm8vsd"]
+[gd_scene load_steps=3 format=3 uid="uid://cutcp6wdm8vsd"]
 
 [ext_resource type="Script" path="res://Scripts/building_popup.gd" id="1_0q2fo"]
+[ext_resource type="ButtonGroup" uid="uid://c4tl6w3dj51f3" path="res://new_button_group.tres" id="2_gok5s"]
 
 [node name="BuildingPopUp" type="PanelContainer"]
 offset_right = 60.0
@@ -19,17 +20,77 @@ layout_mode = 2
 
 [node name="Name" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "INV"
+text = "NAME"
 horizontal_alignment = 1
 
-[node name="UpgradeButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Level" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "LEVEL -1"
+horizontal_alignment = 1
+
+[node name="TargetMode" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TargetLabel" type="Label" parent="MarginContainer/VBoxContainer/TargetMode"]
+layout_mode = 2
+text = "Target Mode"
+horizontal_alignment = 1
+
+[node name="TargetModeMenu" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TargetMode"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="CheckButton" parent="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu"]
+layout_mode = 2
+button_group = ExtResource("2_gok5s")
+text = "Close"
+
+[node name="HealthButton" type="CheckButton" parent="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu"]
+layout_mode = 2
+button_group = ExtResource("2_gok5s")
+text = "Health"
+
+[node name="ShieldButton" type="CheckButton" parent="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu"]
+layout_mode = 2
+button_group = ExtResource("2_gok5s")
+text = "Shield"
+
+[node name="StatContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BuildingStats" type="Label" parent="MarginContainer/VBoxContainer/StatContainer"]
+layout_mode = 2
+text = "Health: 10
+Max Charge: 0
+Charge Rate: 0
+Mine Rate: 0"
+horizontal_alignment = 1
+
+[node name="WeaponStats" type="Label" parent="MarginContainer/VBoxContainer/StatContainer"]
+layout_mode = 2
+text = "Damage: 10
+Charge Cost: 0
+Range: 0
+Ammo: 0
+Cooldown: 0"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="UpgradeButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
 text = "Upgrade"
 
-[node name="SellButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="SellButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer"]
 custom_minimum_size = Vector2(50, 25)
 layout_mode = 2
 text = "sell"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/HealthButton" to="." method="_on_health_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TargetMode/TargetModeMenu/ShieldButton" to="." method="_on_shield_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/SellButton" to="." method="_on_sell_button_pressed"]

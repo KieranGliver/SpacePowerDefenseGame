@@ -71,6 +71,8 @@ func setup(level: int = 0):
 	
 	var building_name = tag
 	self.level = level
+	if weapon != null:
+		is_weapon = true
 	var building_stats = Data.building_stats[building_name][level]
 	
 	if building_stats:

@@ -51,7 +51,7 @@ func create_popup(tile_pos):
 	building_popup.connect("sell_button_pressed", _on_sell_button_pressed)
 	building_popup.connect("upgrade_button_pressed", _on_upgrade_button_pressed)
 	add_child(building_popup)
-	building_popup.set_name_text(building_popup.building.tag)
+	building_popup.setup()
 
 func _on_sell_button_pressed(building: Building):
 	building.queue_free()

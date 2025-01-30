@@ -6,6 +6,13 @@ const HEX_SPRITE_SHEET_OFFSET = 3
 
 signal button_pressed(button: int)
 
+func _ready():
+	for i in button_arr.size():
+		var string = ""
+		string += Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET].to_upper() + "\n"
+		string += "Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]][0])
+		button_arr[i].tooltip_text = string
+
 func _on_button_down():
 	var button = get_pressed()
 	emit_signal("button_pressed", button)

@@ -34,6 +34,7 @@ func _ready():
 	add_charge(0)
 	update_health(max_hp)
 	update_shield(max_shield)
+	health_bar.visible = false
 	
 	if tag == Data.hex_name[Data.hex_ids.ENHANCER]:
 		apply_enhancement()

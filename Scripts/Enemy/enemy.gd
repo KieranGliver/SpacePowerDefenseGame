@@ -29,6 +29,7 @@ func _ready():
 	find_target()
 	update_health(max_hp)
 	update_shield(max_shield)
+	health_bar.visible = false
 
 func _process(delta):
 	if shield_recharge and shield <= max_shield:

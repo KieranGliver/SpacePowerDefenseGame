@@ -56,6 +56,7 @@ scale = Vector2(1.5, 1)
 script = ExtResource("4_m512l")
 
 [node name="HealthBar" type="ProgressBar" parent="BarDisplay"]
+z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0

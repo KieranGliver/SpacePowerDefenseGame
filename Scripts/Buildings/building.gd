@@ -13,7 +13,7 @@ class_name Building
 @export var max_charge : float = 0
 @export var charge_rate : float = 0
 @export var mine_rate: float = 0
-@export var regen_rate: float = 0.1
+@export var regen_rate: float = 0.01
 @export var tile_pos : Vector2 = Vector2.ZERO
 
 @onready var gm = get_tree().get_first_node_in_group("game_manager")
@@ -46,7 +46,7 @@ func _process(delta):
 			gm.consume_resource(tile_pos, mine_rate*delta)
 		#gm.add_resource(mine_rate*delta)
 	if (hp < max_hp) and gm.consume_system_charge(self, regen_rate*delta):
-		update_health(regen_rate*delta)
+		update_health(regen_rate*delta*max_hp)
 
 func _on_hurt_box_hurt(damage, _direction, _knockback):
 	damage(damage)
@@ -94,6 +94,9 @@ func setup(level: int = 0):
 		var adjacent_building = Methods.find_building(tile)
 		if adjacent_building and adjacent_building.tag == Data.hex_name[Data.hex_ids.ENHANCER]:
 			add_enhancer()
+	
+	if health_bar != null:
+		update_health(max_hp)
 
 func apply_enhancement():
 	var adjacent_tiles = Methods.get_adjacent_hexes(tile_pos)

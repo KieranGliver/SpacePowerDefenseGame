@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqxkimur7qmd5"]
+
+[ext_resource type="PackedScene" uid="uid://bor33ifgakyq6" path="res://Scenes/Buildings/Weapons/auto_weapon.tscn" id="1_2hd87"]
+[ext_resource type="Texture2D" uid="uid://b3wp8ims8p5mn" path="res://Sprites/pixil-frame-0 (13).png" id="2_62wno"]
+[ext_resource type="Script" path="res://Scripts/Buildings/hitscan_auto_weapon.gd" id="2_i6bhq"]
+
+[node name="HitscanAutoWeapon" instance=ExtResource("1_2hd87")]
+texture = ExtResource("2_62wno")
+script = ExtResource("2_i6bhq")
+ammo_amount = 0
+attack_speed = 0.0

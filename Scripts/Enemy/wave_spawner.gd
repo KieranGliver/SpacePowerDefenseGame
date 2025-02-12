@@ -45,43 +45,23 @@ func _on_timer_timeout():
 				var counter = 0
 				while counter < i.enemy_num:
 					var enemy_spawn = new_enemy.instantiate()
-					enemy_spawn.global_position = get_random_position()
+					enemy_spawn.position = get_random_position()
+					enemy_spawn.modulate = [Color.WEB_GRAY, Color.WHITE_SMOKE, Color.DIM_GRAY, Color.SLATE_GRAY, Color.GHOST_WHITE, Color.DARK_GRAY, Color.GRAY].pick_random()
 					add_child(enemy_spawn)
 					counter += 1
-	if time >= time_end:
+	if time >= time_end and get_tree().get_nodes_in_group("enemy").is_empty():
 		timer.stop()
 		emit_signal("wave_done")
 
 
 func get_random_position():
 
-	var vpr = Vector2((camera.limit_right - camera.limit_left), (camera.limit_bottom - camera.limit_top)) * randf_range(1.1,1.4)
+	var radius = position.distance_to(Vector2((camera.limit_right-camera.limit_left)/2, (camera.limit_bottom-camera.limit_top)/2))# * randf_range(1.1,1.4)
 	
-	var top_left = Vector2(global_position.x - vpr.x, global_position.y - vpr.y)
-	var top_right = Vector2(global_position.x + vpr.x, global_position.y - vpr.y)
-	var bot_left = Vector2(global_position.x - vpr.x, global_position.y + vpr.y)
-	var bot_right = Vector2(global_position.x + vpr.x, global_position.y + vpr.y)
+	var angle = randf_range(0, TAU)  # TAU is 2 * PI
 	
-	var pos_side = ["up", "down", "right", "left"].pick_random()
-	var spawn_pos1 = Vector2.ZERO
-	var spawn_pos2 = Vector2.ZERO
-	
-	match pos_side:
-		"up":
-			spawn_pos1 = top_left
-			spawn_pos2 = top_right
-		"right":
-			spawn_pos1 = top_right
-			spawn_pos2 = bot_right
-		"down":
-			spawn_pos1 = bot_left
-			spawn_pos2 = bot_right
-		"left":
-			spawn_pos1 = top_left
-			spawn_pos2 = bot_left
-	
-	var x_spawn = randf_range(spawn_pos1.x, spawn_pos2.x)
-	var y_spawn = randf_range(spawn_pos1.y, spawn_pos2.y)
+	var x_spawn = global_position.x + radius * cos(angle)
+	var y_spawn = global_position.x + radius * sin(angle)
 	
 	return Vector2(x_spawn,y_spawn)
 

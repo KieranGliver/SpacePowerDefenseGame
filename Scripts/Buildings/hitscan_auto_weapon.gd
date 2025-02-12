@@ -29,6 +29,13 @@ func _on_internal_timer_timeout():
 			create_tracer(to_local(target.global_position))
 			target.damage(damage_val)
 			ammo_remaining -= 1
+			if building_owner.tag == "minigun":
+				SoundManager.play("minigun", -10)
+			elif building_owner.tag == "sniper":
+				SoundManager.play("sniper", -10)
+			external_timer.stop()
+		elif external_timer.is_stopped():
+			external_timer.start()
 		internal_timer.start()
 	else:
 		external_timer.start()

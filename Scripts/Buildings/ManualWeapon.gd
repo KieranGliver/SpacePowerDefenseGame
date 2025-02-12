@@ -16,6 +16,6 @@ func _unhandled_input(event):
 
 func fire_projectile():
 	var projectile_instant = projectile.instantiate()
-	projectile_instant.set_target(get_global_mouse_position()-global_position)
 	projectile_instant.damage = damage_val
+	projectile_instant.set_target(get_global_mouse_position()-global_position)
 	get_parent().add_child(projectile_instant)

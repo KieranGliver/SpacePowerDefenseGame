@@ -11,7 +11,7 @@ func _ready():
 		var string = ""
 		string += Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET].to_upper() + "\n"
 		string += "Currency Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]]["currency"][0]) + "\n"
-		string += "Ore Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]]["ore"][0])
+		string += "Gem Cost: " + str(Data.cost[Data.hex_name[i+HEX_SPRITE_SHEET_OFFSET]]["ore"][0])
 		button_arr[i].tooltip_text = string
 
 func _on_button_down():
@@ -24,3 +24,7 @@ func get_pressed():
 			# Since tilemap has a blank hex we add one to the index 
 			return i + HEX_SPRITE_SHEET_OFFSET
 	return -1
+
+
+func _on_wire_button_pressed():
+	pass # Replace with function body.

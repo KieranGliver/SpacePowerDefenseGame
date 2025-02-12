@@ -1,13 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://cved15jmsk7ep"]
 
-[ext_resource type="Texture2D" uid="uid://bjyxgu610cp7a" path="res://Sprites/prototype/hex_sprites/Spritesheet/hex_tile_map.png" id="1_3j5y0"]
+[ext_resource type="Texture2D" uid="uid://k0gd48qt4rkl" path="res://Sprites/prototype/hex_sprites/Spritesheet/spritesheet (9).png" id="1_5ygwy"]
 [ext_resource type="Script" path="res://Scripts/UI/hex_tile_map.gd" id="2_7ekgt"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yokl5"]
-texture = ExtResource("1_3j5y0")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_frvph"]
+texture = ExtResource("1_5ygwy")
 margins = Vector2i(9, 8)
 separation = Vector2i(18, 0)
 texture_region_size = Vector2i(110, 96)
+use_texture_padding = false
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -37,7 +38,7 @@ tile_offset_axis = 1
 tile_size = Vector2i(102, 94)
 custom_data_layer_0/name = "Occupied"
 custom_data_layer_0/type = 1
-sources/0 = SubResource("TileSetAtlasSource_yokl5")
+sources/0 = SubResource("TileSetAtlasSource_frvph")
 
 [node name="TileMap" type="TileMap"]
 position = Vector2(-52, -47)

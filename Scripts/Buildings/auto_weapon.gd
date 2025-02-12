@@ -4,8 +4,8 @@ class_name AutoWeapon
 
 enum target_modes {CLOSET, HEALTH, SHIELD}
 
-@onready var internal_timer = $InternalTimer
-@onready var external_timer = $ExternalTimer
+@onready var internal_timer : Timer = $InternalTimer
+@onready var external_timer : Timer = $ExternalTimer
 
 @export var cooldown: float = 0.0
 @export var range: float = 0.0

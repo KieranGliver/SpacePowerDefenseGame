@@ -1,16 +1,16 @@
 [gd_scene load_steps=14 format=3 uid="uid://0v2s4ifhgy8h"]
 
 [ext_resource type="PackedScene" uid="uid://cved15jmsk7ep" path="res://Scenes/UI/hex_tile_map.tscn" id="1_23a8a"]
-[ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_88mrd"]
-[ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_ct4ye"]
+[ext_resource type="Script" uid="uid://b6cijsyyyjlj4" path="res://Scripts/Managers/game_manager.gd" id="1_88mrd"]
+[ext_resource type="Script" uid="uid://dxtpslxmh35x6" path="res://Scripts/ui_manager.gd" id="1_ct4ye"]
 [ext_resource type="PackedScene" uid="uid://cmpyjgsw4j44" path="res://ParallaxBG.tscn" id="1_jxykq"]
 [ext_resource type="PackedScene" uid="uid://c4qar084b8sbt" path="res://Scenes/UI/Overlay/HexMenu.tscn" id="2_yfjim"]
 [ext_resource type="Texture2D" uid="uid://ds30ixmmonq30" path="res://Sprites/prototype/Minecraft-Emerald.png" id="3_2qotx"]
 [ext_resource type="PackedScene" uid="uid://bovrdbn26tthk" path="res://Scenes/Enemy/wave_spawner.tscn" id="3_jtl8h"]
 [ext_resource type="PackedScene" uid="uid://b4kpjs0vvecns" path="res://Scenes/UI/Overlay/start_button.tscn" id="3_u8lrq"]
-[ext_resource type="Script" path="res://Scripts/Managers/Camera_manager.gd" id="6_5fofq"]
-[ext_resource type="Script" path="res://Scripts/TimeDisplay.gd" id="6_cs0kq"]
-[ext_resource type="Script" path="res://Scripts/RetryButton.gd" id="7_m8ai7"]
+[ext_resource type="Script" uid="uid://cq543i7j4lr3n" path="res://Scripts/Managers/Camera_manager.gd" id="6_5fofq"]
+[ext_resource type="Script" uid="uid://kpcv10mcqfs8" path="res://Scripts/TimeDisplay.gd" id="6_cs0kq"]
+[ext_resource type="Script" uid="uid://bh086xc0nd00i" path="res://Scripts/RetryButton.gd" id="7_m8ai7"]
 [ext_resource type="PackedScene" uid="uid://6c1t8nkvmvi0" path="res://Scenes/UI/Overlay/curreny_label.tscn" id="8_vyvfu"]
 [ext_resource type="PackedScene" uid="uid://3kanf81gyau5" path="res://Planet.tscn" id="9_3wht0"]
 
@@ -170,7 +170,6 @@ scale = Vector2(3.14, 3.14)
 [node name="TileMap" parent="GM" instance=ExtResource("1_23a8a")]
 position = Vector2(-26, -23.5)
 scale = Vector2(0.5, 0.5)
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -65537, 0, 0, 65534, 0, 0, -2, 0, 0, 131070, 0, 0, 131071, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 65539, 0, 0, 3, 0, 0, -65533, 0, 0, -131069, 0, 0, -131070, 0, 0, -196607, 0, 0, -131073, 0, 0, -65538, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196606, 0, 0, 196607, 0, 0, 196608, 0, 0, -196608, 0, 0)
 
 [node name="WaveSpawner" parent="GM" instance=ExtResource("3_jtl8h")]
 scale = Vector2(0.5, 0.5)

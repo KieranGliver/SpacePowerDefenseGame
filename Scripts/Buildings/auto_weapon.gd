@@ -54,5 +54,3 @@ func in_range(enemy: Enemy):
 
 func paid_cost(cost: float):
 	return get_tree().get_first_node_in_group("game_manager").consume_system_charge(building_owner, cost)
-
-

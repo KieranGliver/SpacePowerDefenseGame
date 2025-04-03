@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bor33ifgakyq6" path="res://Scenes/Buildings/Weapons/auto_weapon.tscn" id="1_2hd87"]
 [ext_resource type="Texture2D" uid="uid://b3wp8ims8p5mn" path="res://Sprites/pixil-frame-0 (13).png" id="2_62wno"]
-[ext_resource type="Script" path="res://Scripts/Buildings/hitscan_auto_weapon.gd" id="2_i6bhq"]
+[ext_resource type="Script" uid="uid://c1g82abff56bq" path="res://Scripts/Buildings/hitscan_auto_weapon.gd" id="2_i6bhq"]
 
 [node name="HitscanAutoWeapon" instance=ExtResource("1_2hd87")]
 texture = ExtResource("2_62wno")

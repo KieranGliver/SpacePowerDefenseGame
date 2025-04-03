@@ -55,4 +55,3 @@ func revert_enhance_weapon():
 			self.ammo_amount /= Data.ENHANCEMENT_MULTI
 		elif self is ContinousAutoWeapon:
 			self.attack_duration /= Data.ENHANCEMENT_MULTI
-

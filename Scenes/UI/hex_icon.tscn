@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nrq8kuptf540"]
 
 [ext_resource type="Texture2D" uid="uid://bgukj5ppj1i2u" path="res://Sprites/prototype/hex_sprites/Spritesheet/spritesheet (10).png" id="1_2n1le"]
-[ext_resource type="Script" path="res://Scripts/UI/HexIcon.gd" id="2_hpf86"]
+[ext_resource type="Script" uid="uid://nwfnp1ra56ux" path="res://Scripts/UI/HexIcon.gd" id="2_hpf86"]
 
 [node name="HexIcon" type="Sprite2D"]
 visible = false

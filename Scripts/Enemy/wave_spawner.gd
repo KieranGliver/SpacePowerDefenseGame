@@ -64,4 +64,3 @@ func get_random_position():
 	var y_spawn = global_position.x + radius * sin(angle)
 	
 	return Vector2(x_spawn,y_spawn)
-

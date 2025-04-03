@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://cj1d8rkihmwgw"]
 
-[ext_resource type="Script" path="res://Scripts/Enemy/enemy.gd" id="1_6f0px"]
+[ext_resource type="Script" uid="uid://b1wdxbr08u5x6" path="res://Scripts/Enemy/enemy.gd" id="1_6f0px"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_h3gkj"]
 [ext_resource type="PackedScene" uid="uid://hmk0hgrodh0p" path="res://Scenes/Utility/hit_box.tscn" id="4_6dbrs"]
-[ext_resource type="Script" path="res://Scripts/ProgressBarDisplay.gd" id="4_ayiot"]
+[ext_resource type="Script" uid="uid://dm61sjp2ykmb2" path="res://Scripts/ProgressBarDisplay.gd" id="4_ayiot"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_nucoh"]
 

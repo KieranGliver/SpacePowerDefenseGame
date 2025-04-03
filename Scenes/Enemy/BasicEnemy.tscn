@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5fhf62sssdyh"]
 
 [ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="1_d15rj"]
-[ext_resource type="Texture2D" uid="uid://dr12gfoiedugu" path="res://Sprites/prototype/space_invader_1.png" id="2_67w0f"]
+[ext_resource type="Texture2D" uid="uid://dc86glavg5hfq" path="res://Sprites/prototype/pixil-frame-0 (2).png" id="2_3tkuc"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eb0jp"]
 radius = 9.0
@@ -16,13 +16,13 @@ radius = 11.0
 height = 42.0
 
 [node name="Enemy" instance=ExtResource("1_d15rj")]
-SPEED = 60.0
-max_hp = 20.0
+SPEED = 35.0
+max_hp = 15.0
 max_shield = 0.0
-currency_value = 10
+currency_value = 5
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_67w0f")
+texture = ExtResource("2_3tkuc")
 
 [node name="CollisionShape2D" parent="." index="1"]
 rotation = 1.5708
@@ -30,9 +30,6 @@ shape = SubResource("CapsuleShape2D_eb0jp")
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CapsuleShape2D_m21mq")
-
-[node name="HitBox" parent="." index="3"]
-damage = 0.0
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("CapsuleShape2D_06fji")

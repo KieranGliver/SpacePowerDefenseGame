@@ -40,15 +40,15 @@ func setup():
 					shield_button.button_pressed = true
 	
 	if building.level < Data.MAX_LEVEL:
-		upgrade_button.tooltip_text = "Currency Cost: " + str(Data.cost[building.tag]["currency"][building.level+1]) + "\n" + "Ore Cost: " + str(Data.cost[building.tag]["ore"][building.level+1])
+		upgrade_button.tooltip_text = "Currency Cost: " + str(Data.cost[building.tag]["currency"][building.level+1]) + "\n" + "Gem Cost: " + str(Data.cost[building.tag]["ore"][building.level+1])
 	else:
 		upgrade_button.tooltip_text = "Max Level"
 
 func get_building_stats():
 	var ret_string = ""
 	
-	if building.hp > 0:
-		ret_string += "Health: " + str(building.hp) + "\n"
+	if building.max_hp > 0:
+		ret_string += "Health: " + str(building.max_hp) + "\n"
 	if building.max_charge > 0:
 		ret_string += "Max Charge: " + str(building.max_charge) + "\n"
 	if building.charge_rate > 0:

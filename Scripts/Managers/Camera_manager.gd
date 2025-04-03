@@ -2,7 +2,7 @@ extends Camera2D
 
 var picked = false
 
-const ZOOM_OUT_MAX = 1.0
+const ZOOM_OUT_MAX = 0.8
 const ZOOM_IN_MAX = 2.4
 const ZOOM_SPEED = 0.25
 

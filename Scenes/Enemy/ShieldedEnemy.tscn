@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://q2wb24pq5quq"]
 
 [ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="1_ppnlu"]
-[ext_resource type="Texture2D" uid="uid://b82nrg33uwh8m" path="res://Sprites/prototype/Space_invader_2.png" id="2_ebnxi"]
+[ext_resource type="Texture2D" uid="uid://i5u8pshwqec5" path="res://Sprites/pixil-frame-0 (4).png" id="2_osved"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k8pss"]
 height = 48.0
@@ -15,11 +15,12 @@ radius = 13.0
 height = 54.0
 
 [node name="Enemy" instance=ExtResource("1_ppnlu")]
-SPEED = 45.0
-max_hp = 5.0
+SPEED = 30.0
+max_shield = 20.0
+currency_value = 5
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_ebnxi")
+texture = ExtResource("2_osved")
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_k8pss")

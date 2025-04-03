@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://dcybrtx6cdqpv"]
 
-[ext_resource type="Script" path="res://Scripts/Buildings/building.gd" id="1_pfwks"]
+[ext_resource type="Script" uid="uid://cn2if7p7aefxh" path="res://Scripts/Buildings/building.gd" id="1_pfwks"]
 [ext_resource type="Texture2D" uid="uid://gmkebxm45hft" path="res://Sprites/prototype/hex_sprites/Hex_Icon/blank_hex.png" id="2_6a0k1"]
 [ext_resource type="PackedScene" uid="uid://8m6xtgg55wiw" path="res://Scenes/Utility/hurt_box.tscn" id="3_b6w3n"]
-[ext_resource type="Script" path="res://Scripts/ProgressBarDisplay.gd" id="4_m512l"]
+[ext_resource type="Script" uid="uid://dm61sjp2ykmb2" path="res://Scripts/ProgressBarDisplay.gd" id="4_m512l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ny7f"]
 radius = 48.0104

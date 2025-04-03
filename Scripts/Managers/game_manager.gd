@@ -11,6 +11,7 @@ class_name GameManager
 @export var BUILDING_PREFAB = preload("res://Scenes/Buildings/building.tscn")
 @export var MANUAL_PREFAB = preload("res://Scenes/Buildings/Weapons/manual_weapon.tscn")
 @export var AUTO_HITSCAN_PREFAB = preload("res://Scenes/Buildings/Weapons/hit_scan_auto_weapon.tscn")
+@export var SNIPER_PREFAB = preload("res://Scenes/Buildings/Weapons/sniper.tscn")
 @export var AUTO_CONTINOUS_PREFAB = preload("res://Scenes/Buildings/Weapons/continous_auto_weapon.tscn")
 
 
@@ -24,12 +25,15 @@ signal wave_changed()
 
 func _ready():
 	setup()
+	SoundManager.play("main_theme")
+	if !SoundManager.exists("main_theme"):
+		SoundManager.play("main_theme")
 
 func setup():
 	spawn_building(Vector2.ZERO, Data.hex_ids.HEART)
-	Data.currency = 10000
+	Data.currency = 100
 	emit_signal("currency_changed")
-	Data.ore = 100
+	Data.ore = 10
 	emit_signal("ore_changed")
 	Data.wave_number = 0
 	emit_signal("wave_changed")
@@ -81,6 +85,7 @@ func place_hex():
 	var tile_data = tile_map.get_cell_tile_data(Data.TILE_MAP_LAYER, pos_clicked)
 	var hex_id = um.hex_icon.hex_id
 	if can_place_hex(tile_data):
+		SoundManager.play("building")
 		add_currency(-Data.cost[Data.hex_name[hex_id]]["currency"][0])
 		add_resource(-Data.cost[Data.hex_name[hex_id]]["ore"][0])
 		spawn_building(pos_clicked, hex_id)
@@ -130,8 +135,10 @@ func add_weapon(hex_id: int, building_instant: Building):
 	match hex_id:
 		Data.hex_ids.MANUAL:
 			weapon_instant = MANUAL_PREFAB.instantiate()
-		Data.hex_ids.MINIGUN, Data.hex_ids.SNIPER:
+		Data.hex_ids.MINIGUN:
 			weapon_instant = AUTO_HITSCAN_PREFAB.instantiate()
+		Data.hex_ids.SNIPER:
+			weapon_instant = SNIPER_PREFAB.instantiate()
 		Data.hex_ids.LASER:
 			weapon_instant = AUTO_CONTINOUS_PREFAB.instantiate()
 	
@@ -215,7 +222,7 @@ func find_building_system(building:Building):
 func _on_start_button_pressed():
 	um.update_visiblity(false, um.ui_atlas[um.ui_id.START])
 	wave_spawner.start_wave(Data.wave_number)
-	$"../CanvasLayer/UI/TimeDisplay/Timer".start()
+	$"../CanvasLayer/UI/PanelContainer/TimeDisplay/Timer".start()
 
 func _on_wave_spawner_wave_done():
 	increment_wave()
@@ -223,7 +230,7 @@ func _on_wave_spawner_wave_done():
 func increment_wave():
 	Data.wave_number += 1
 	emit_signal("wave_changed")
-	if Data.wave_number > Data.wave_data.size():
+	if Data.wave_number >= Data.wave_data.size():
 		um.update_visiblity(true, um.ui_atlas[um.ui_id.WIN])
 	else:
 		#um.update_visiblity(true, um.ui_atlas[um.ui_id.START])

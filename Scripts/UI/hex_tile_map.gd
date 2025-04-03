@@ -8,11 +8,14 @@ func _ready():
 
 func add_ore():
 	var possible_tiles = outer_rim.duplicate()
-	for i in 5:
+	for i in 6:
 		var picked_tile = possible_tiles.pick_random()
 		set_cell(Data.TILE_MAP_LAYER, picked_tile, Data.TILE_MAP_ATLAS_ID, Vector2(Data.hex_ids.ORE, 0))
 		possible_tiles.erase(picked_tile)
-		ore_tiles.merge({picked_tile: 10.1})
+		ore_tiles.merge({picked_tile: 40.1})
+	
+	for possible in possible_tiles:
+		set_cell(Data.TILE_MAP_LAYER, possible, Data.TILE_MAP_ATLAS_ID)
 
 func is_building(tile_pos:Vector2):
 	return get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos) and get_cell_tile_data(Data.TILE_MAP_LAYER,tile_pos).get_custom_data("Occupied")

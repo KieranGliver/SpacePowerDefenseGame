@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c47dmgkn03tgr"]
 
 [ext_resource type="PackedScene" uid="uid://cj1d8rkihmwgw" path="res://Scenes/Enemy/enemy.tscn" id="1_8ibjp"]
-[ext_resource type="Script" path="res://Scripts/projectile_enemy.gd" id="2_s5amu"]
-[ext_resource type="Texture2D" uid="uid://c5c8a5k5uxngp" path="res://Sprites/prototype/space_invader_4.png" id="3_rvsx1"]
+[ext_resource type="Script" uid="uid://bddx7jwen62ix" path="res://Scripts/projectile_enemy.gd" id="2_s5amu"]
+[ext_resource type="Texture2D" uid="uid://clkw1htac63xp" path="res://Sprites/pixil-frame-0 (5).png" id="3_j0727"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jve2u"]
 radius = 5.0
@@ -18,12 +18,13 @@ height = 38.0
 [node name="Enemy" instance=ExtResource("1_8ibjp")]
 script = ExtResource("2_s5amu")
 damage_value = 1
-attack_range = 300
+attack_range = 250
+SPEED = 30.0
 max_shield = 0.0
-shield_recharge_rate = 0.0
+currency_value = 10
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("3_rvsx1")
+texture = ExtResource("3_j0727")
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, -4)

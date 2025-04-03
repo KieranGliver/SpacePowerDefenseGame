@@ -84,6 +84,7 @@ func update_health(value: float):
 	hp = maxf(minf(hp + value, max_hp), 0)
 	if hp <= 0:
 		get_tree().get_first_node_in_group("game_manager").add_currency(currency_value)
+		SoundManager.play("enemy_death", -10)
 		queue_free()
 	health_bar.max_value = max_hp
 	health_bar.value = hp

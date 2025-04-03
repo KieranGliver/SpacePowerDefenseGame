@@ -7,11 +7,12 @@ const SPRITE_ROTATION_OFFSET = deg_to_rad(90.0)
 @export var damage_val: float = 0.0
 @export var charge_cost: float = 0.0
 
+
 var building_owner : Building = null
 
 func setup(tag: String, level: int = 0):
 	var weapon_name = tag
-	var weapon_stats = Data.weapon_stats[weapon_name][0]
+	var weapon_stats = Data.weapon_stats[weapon_name][level]
 	
 	if weapon_stats:
 		damage_val = weapon_stats["damage"]
@@ -54,4 +55,3 @@ func revert_enhance_weapon():
 			self.ammo_amount /= Data.ENHANCEMENT_MULTI
 		elif self is ContinousAutoWeapon:
 			self.attack_duration /= Data.ENHANCEMENT_MULTI
-

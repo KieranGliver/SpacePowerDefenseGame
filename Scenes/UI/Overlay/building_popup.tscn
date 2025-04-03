@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cutcp6wdm8vsd"]
 
-[ext_resource type="Script" path="res://Scripts/building_popup.gd" id="1_0q2fo"]
+[ext_resource type="Script" uid="uid://olwvrlaxf0dv" path="res://Scripts/building_popup.gd" id="1_0q2fo"]
 [ext_resource type="ButtonGroup" uid="uid://c4tl6w3dj51f3" path="res://new_button_group.tres" id="2_gok5s"]
 
 [node name="BuildingPopUp" type="PanelContainer"]

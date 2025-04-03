@@ -42,6 +42,7 @@ func _on_gm_wave_changed():
 	ui[ui_atlas[ui_id.WAVE]].text = "Wave " + str(Data.wave_number+1)
 
 func _on_hex_menu_button_pressed(button):
+	cleanup_hex_icon()
 	gm.start_placement(button)
 
 func create_popup(tile_pos):

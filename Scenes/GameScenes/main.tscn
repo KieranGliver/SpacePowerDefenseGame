@@ -1,18 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://0v2s4ifhgy8h"]
+[gd_scene load_steps=14 format=3 uid="uid://0v2s4ifhgy8h"]
 
 [ext_resource type="PackedScene" uid="uid://cved15jmsk7ep" path="res://Scenes/UI/hex_tile_map.tscn" id="1_23a8a"]
-[ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_88mrd"]
-[ext_resource type="Script" path="res://Scripts/ui_manager.gd" id="1_ct4ye"]
+[ext_resource type="Script" uid="uid://b6cijsyyyjlj4" path="res://Scripts/Managers/game_manager.gd" id="1_88mrd"]
+[ext_resource type="Script" uid="uid://dxtpslxmh35x6" path="res://Scripts/ui_manager.gd" id="1_ct4ye"]
+[ext_resource type="PackedScene" uid="uid://cmpyjgsw4j44" path="res://ParallaxBG.tscn" id="1_jxykq"]
 [ext_resource type="PackedScene" uid="uid://c4qar084b8sbt" path="res://Scenes/UI/Overlay/HexMenu.tscn" id="2_yfjim"]
 [ext_resource type="Texture2D" uid="uid://ds30ixmmonq30" path="res://Sprites/prototype/Minecraft-Emerald.png" id="3_2qotx"]
 [ext_resource type="PackedScene" uid="uid://bovrdbn26tthk" path="res://Scenes/Enemy/wave_spawner.tscn" id="3_jtl8h"]
 [ext_resource type="PackedScene" uid="uid://b4kpjs0vvecns" path="res://Scenes/UI/Overlay/start_button.tscn" id="3_u8lrq"]
-[ext_resource type="Script" path="res://Scripts/Managers/Camera_manager.gd" id="6_5fofq"]
-[ext_resource type="Script" path="res://Scripts/TimeDisplay.gd" id="6_cs0kq"]
-[ext_resource type="Script" path="res://Scripts/RetryButton.gd" id="7_m8ai7"]
+[ext_resource type="Script" uid="uid://cq543i7j4lr3n" path="res://Scripts/Managers/Camera_manager.gd" id="6_5fofq"]
+[ext_resource type="Script" uid="uid://kpcv10mcqfs8" path="res://Scripts/TimeDisplay.gd" id="6_cs0kq"]
+[ext_resource type="Script" uid="uid://bh086xc0nd00i" path="res://Scripts/RetryButton.gd" id="7_m8ai7"]
 [ext_resource type="PackedScene" uid="uid://6c1t8nkvmvi0" path="res://Scenes/UI/Overlay/curreny_label.tscn" id="8_vyvfu"]
+[ext_resource type="PackedScene" uid="uid://3kanf81gyau5" path="res://Planet.tscn" id="9_3wht0"]
 
 [node name="Main" type="Node"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_jxykq")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -31,8 +35,10 @@ layout_mode = 1
 
 [node name="ResourceUI" type="HBoxContainer" parent="CanvasLayer/UI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 329.0
+offset_bottom = 93.0
 
 [node name="CurrenyLabel" parent="CanvasLayer/UI/ResourceUI" instance=ExtResource("8_vyvfu")]
 layout_mode = 2
@@ -48,19 +54,24 @@ layout_mode = 1
 offset_top = 63.0
 offset_bottom = 136.0
 
-[node name="TimeDisplay" type="Label" parent="CanvasLayer/UI"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -121.0
-offset_bottom = 70.0
+offset_left = -135.0
+offset_top = 8.0
+offset_right = -14.0
+offset_bottom = 78.0
 grow_horizontal = 0
+
+[node name="TimeDisplay" type="Label" parent="CanvasLayer/UI/PanelContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "99:99"
 script = ExtResource("6_cs0kq")
 
-[node name="Timer" type="Timer" parent="CanvasLayer/UI/TimeDisplay"]
+[node name="Timer" type="Timer" parent="CanvasLayer/UI/PanelContainer/TimeDisplay"]
 
 [node name="WaveLabel" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -152,10 +163,13 @@ script = ExtResource("7_m8ai7")
 [node name="GM" type="Node2D" parent="." groups=["game_manager"]]
 script = ExtResource("1_88mrd")
 
+[node name="Node2D" parent="GM" instance=ExtResource("9_3wht0")]
+position = Vector2(0.99997, 2)
+scale = Vector2(3.14, 3.14)
+
 [node name="TileMap" parent="GM" instance=ExtResource("1_23a8a")]
 position = Vector2(-26, -23.5)
 scale = Vector2(0.5, 0.5)
-layer_0/tile_data = PackedInt32Array(0, 0, 0, 65535, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, 1, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 2, 0, 0, -65534, 0, 0, -131071, 0, 0, -131072, 0, 0, -65537, 0, 0, 65534, 0, 0, -2, 0, 0, 131070, 0, 0, 131071, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 65539, 0, 0, 3, 0, 0, -65533, 0, 0, -131069, 0, 0, -131070, 0, 0, -196607, 0, 0, -131073, 0, 0, -65538, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196606, 0, 0, 196607, 0, 0, 196608, 0, 0, -196608, 0, 0)
 
 [node name="WaveSpawner" parent="GM" instance=ExtResource("3_jtl8h")]
 scale = Vector2(0.5, 0.5)
@@ -168,9 +182,11 @@ limit_right = 1280
 limit_bottom = 720
 script = ExtResource("6_5fofq")
 
+[node name="Sounds" type="Node" parent="."]
+
 [connection signal="button_pressed" from="CanvasLayer/UI/HexMenu" to="CanvasLayer/UI" method="_on_hex_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/StartButton/MarginContainer/Button" to="GM" method="_on_start_button_pressed"]
-[connection signal="timeout" from="CanvasLayer/UI/TimeDisplay/Timer" to="CanvasLayer/UI/TimeDisplay" method="_on_timer_timeout"]
+[connection signal="timeout" from="CanvasLayer/UI/PanelContainer/TimeDisplay/Timer" to="CanvasLayer/UI/PanelContainer/TimeDisplay" method="_on_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/UI/WinLabel/RetryButton" to="CanvasLayer/UI/WinLabel/RetryButton" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/LoseLabel/RetryButton" to="CanvasLayer/UI/LoseLabel/RetryButton" method="_on_pressed"]
 [connection signal="currency_changed" from="GM" to="CanvasLayer/UI" method="_on_gm_currency_changed"]

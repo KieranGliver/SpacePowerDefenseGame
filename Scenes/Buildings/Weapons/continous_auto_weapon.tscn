@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cklmyjd1nvn2l"]
+[gd_scene load_steps=4 format=3 uid="uid://cklmyjd1nvn2l"]
 
 [ext_resource type="PackedScene" uid="uid://bor33ifgakyq6" path="res://Scenes/Buildings/Weapons/auto_weapon.tscn" id="1_6f1al"]
-[ext_resource type="Script" path="res://Scripts/Buildings/continous_auto_weapon.gd" id="2_iqstu"]
+[ext_resource type="Script" uid="uid://bqao6q0d7g18m" path="res://Scripts/Buildings/continous_auto_weapon.gd" id="2_iqstu"]
+[ext_resource type="Texture2D" uid="uid://b55bsp7tg22ah" path="res://Sprites/pixil-frame-0 (7).png" id="2_pxkt3"]
 
 [node name="ContinousAutoWeapon" instance=ExtResource("1_6f1al")]
+texture = ExtResource("2_pxkt3")
 script = ExtResource("2_iqstu")
 attack_duration = 0.0
 

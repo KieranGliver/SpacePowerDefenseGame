@@ -1,1 +1,1 @@
-PLay at https://eggsenbacon.itch.io/space-power-defense
+Play at https://eggsenbacon.itch.io/space-power-defense
